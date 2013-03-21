@@ -1,7 +1,7 @@
 <?php
 /**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmä
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * This file contains functionality for managing users
  * 
@@ -43,7 +43,7 @@ require_once('core/player.php');
 
 
 function RegisterPlayer( $username, $password, $email, $firstname, $lastname,
-                         $gender, $pdga , $birthyear )
+                         $gender, $pdga , $birthyear, $club )
 {
     
     $err = null;
@@ -60,7 +60,7 @@ function RegisterPlayer( $username, $password, $email, $firstname, $lastname,
         }
     }
     
-    $player = new Player( null, $pdga, $gender, $birthyear, $firstname, $lastname, $email);
+    $player = new Player( null, $pdga, $gender, $birthyear, $firstname, $lastname, $email, $club);
     
     $err = $player->ValidatePlayer();
     if( !isset( $err))

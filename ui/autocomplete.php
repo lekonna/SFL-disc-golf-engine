@@ -1,7 +1,7 @@
 <?php
 /**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmõ
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Backend for providing autocomplete functionality
  * 
@@ -29,13 +29,17 @@
 function InitializeSmartyVariables(&$smarty, $error) {
     header("Content-Type: text/javascript");
     $id = basename(@$_GET['id']);
-    
+    $usernameRequired = basename(@$_GET['usernameRequired']);
     if (!file_exists("ui/autocomplete/$id.php")) return new Error();
     
     
     include("ui/autocomplete/$id.php");
+    if ($id==="users"){
+        $options = page_Autocomplete($_GET['query'], $usernameRequired);
+    }else {
+        $options = page_Autocomplete($_GET['query']);
+    }
     
-    $options = page_Autocomplete($_GET['query']);
     
     $suggestions = $options['suggestions'];
     

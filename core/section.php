@@ -1,7 +1,7 @@
 <?php
 /**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmä
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * This file contains the Section class.
  * 
@@ -102,7 +102,7 @@ class Section
     /**
      * Initializes this section's groups
     */
-    function InitializeGroups($round, &$start, &$changes) {
+    function InitializeGroups($round, &$start, &$changes, $sortByParticipation) {
         $players = $this->GetPlayers();
         //$players = array_reverse($players);
         //print_r($players);

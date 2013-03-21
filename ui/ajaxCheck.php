@@ -1,7 +1,8 @@
 <?php
+
 /**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmõ
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * This file is the backend for doing form validation using AJAX
  * 
@@ -28,43 +29,57 @@
  */
 function InitializeSmartyVariables(&$smarty, $error) {
     language_include('formvalidation');
-    switch ($_GET['id']) {
+    $keissi = $_GET['id'];
+    switch ($keissi) {
         case "username":
             // Ensure username is valid
             if (!preg_match('/^[\pL\d_-]+$/', $_GET['username'])) {
                 $data = translate('FormError_InvalidUsername', array('username' => htmlentities($_GET['username'])));
-            }
-            else if (GetUserId($_GET['username']) !== null) {
-                $data = translate('FormError_DuplicateUsername', array('username' => htmlentities($_GET['username'])));                
+            } else if (GetUserId($_GET['username']) !== null) {
+                $data = translate('FormError_DuplicateUsername', array('username' => htmlentities($_GET['username'])));
             } else {
                 $data = 'OK';
             }
-            
-            
+
+
             break;
         case 'validuser':
-            
-            
+
             $username = @$_GET['username'];
-            
+
             $td = input_GetUser($username);
-            
 
-            if (!$td) $data = translate('FormError_InvalidUsername', array('username' => $username));
-            else $data = 'OK';
-            
+            if (!$td)
+                $data = translate('FormError_InvalidUsername', array('username' => $username));
+            else
+                $data = 'OK';
+
             break;
-
-            default:
-            $data = 'InvalidOperation';
             
+        case 'pdga':
+
+            $pdga = @$_GET['pdga'];
+
+            //$td = input_GetUser($username);
+
+            
+            $data = fetchUserInfoFromSfl($pdga);
+           
+            logListToFile($data);
+            
+            echo json_encode($data);
+             //$smarty->assign('data', json_encode($data));
+
+            break;
+            
+        default:
+            $data = 'InvalidOperation';
     }
-    
+    if ($_GET['id']!='pdga')
     $smarty->assign('data', $data);
-    
+
     SetContentType("text/plain");
 }
-
 
 /**
  * Determines which main menu option this page falls under.
@@ -76,4 +91,5 @@ function InitializeSmartyVariables(&$smarty, $error) {
 function getMainMenuSelection() {
     return 'index';
 }
+
 ?>

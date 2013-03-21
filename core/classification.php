@@ -1,7 +1,7 @@
 <?php
 /**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmä
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * This file includes the Classification class, which represents a single
  * classification in the system.
@@ -31,12 +31,13 @@ class Classification
     var $maxAge;
     var $gender;
     var $available;
-    
+    var $class_player_limit;
+    var $openPositions;
     
     /** ************************************************************************
      * Class constructor
      */
-    function Classification($id = null, $name = null, $minAge = 0, $maxAge = 0, $gender = null, $available = 0)
+    function Classification($id = null, $name = null, $minAge = 0, $maxAge = 0, $gender = null, $available = 0, $class_player_limit=0, $openPositions = null)
     {
       if (is_array($id)) {
         $this->initializeFromArray($id);
@@ -48,6 +49,8 @@ class Classification
         $this->maxAge = $maxAge;
         $this->gender = $gender;
         $this->available = $available;
+        $this->class_player_limit = $class_player_limit;
+        $this->openPositions = $openPositions;        
       }
       
       
@@ -60,6 +63,7 @@ class Classification
         $this->maxAge = $array['MaximumAge'];
         $this->gender = $array['GenderRequirement'];
         $this->available = $array['Available'];
+        $this->class_player_limit = $array['ClassPlayerLimit'];
     }
     
     function getPlayers($event = null) {

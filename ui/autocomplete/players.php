@@ -1,7 +1,7 @@
 <?php
 /*
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhm§
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Autocomplete listing for players
  * 
@@ -21,8 +21,8 @@
  * along with Kisakone.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-function page_Autocomplete($query) {
-    $users = GetPlayerUsers($query);
+function page_Autocomplete($id) {
+    $user = GetUserInfoFromSfl($id);
     $display = array();
     $data = array();
     

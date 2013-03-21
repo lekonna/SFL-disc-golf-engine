@@ -62,3 +62,4 @@ map_url             Osoite karttakuvaan
 link                Linkki radan tietoihin
 
 course_edit_warning Tämä rata on käytössä ainakin yhdessä kilpailussa. Muutokset vaikuttavat sekä uusiin että vanhoihin kilpailuihin -- kopioiden teko on suositeltavaa.
+pool_size       Ryhmäkoko

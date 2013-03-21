@@ -1,6 +1,6 @@
 {**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmä
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Event schedule
  * 
@@ -19,7 +19,9 @@
  * You should have received a copy of the GNU General Public License
  * along with Kisakone.  If not, see <http://www.gnu.org/licenses/>.
  * *}
+ {if $admin || $visibility=='public'} 
  {if $mode != 'body'}
+      
  <style type="text/css">{literal}
 .selected td {
     background-color: #DFD;
@@ -114,3 +116,4 @@
     {if $allow_print}<p><a href="{url page=printscorecard id=$smarty.get.id round=$smarty.get.round}">{translate id=print_score_card}</p>{/if}
 {/if}
 {/if}
+    {/if}

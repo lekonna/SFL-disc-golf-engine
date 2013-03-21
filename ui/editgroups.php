@@ -1,7 +1,7 @@
 <?php
 /*
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhm§
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Group editor
  * 
@@ -51,8 +51,10 @@ function InitializeSmartyVariables(&$smarty, $error) {
       $round->RegenerateGroups();
       header("Location: " . url_smarty(array('page' => 'editgroups', 'id' => @$_GET['id'], 'round' => @$_GET['round']), $_GET));
       die();
+   }else if (@$_GET['regenerateWithGroups']){
+       $round->RegenerateGroups(true);
    } else {
-      if ($round->InitializeGroups ()) {
+      if ($round->InitializeGroups (false)) {
          $smarty->assign('suggestRegeneration', true);
       }
    }

@@ -22,93 +22,93 @@
 {translate id='editgroups_title' assign='title' }
 {capture assign=extrahead}
 
-<style type="text/css">
-{literal}
-    .groupman ul, .groupman li {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-    }
-    
-    .groupman li {
-        padding: 2px;
-        -moz-border-radius: 1em;
-        
-    }
-    
-    .beingDragged{
-        background-color: #CCC;
-    }
-    
+    <style type="text/css">
+        {literal}
+            .groupman ul, .groupman li {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+            }
 
-    
-    .droponme {
-        border: 2px solid blue !important;
-        
-    }
-    
-    .groupman td {
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-    
-    .tag_person {
-        cursor: pointer;        
-    }
-    .tag_person:hover {
-        text-decoration: underline;
-    }
-    
-    .groupman .toplist {
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-    
-    .innertable td {
-        padding: 3px;
-        min-height: 32px;
-    }
-    
-    .grouplist {
-        width: 400px;
-        float: left;
-        
-    }
-    
-    .tagged {
-        border: 2px solid green !important;
-    }
-    
-    .taggedp {
-        background-color: #FFA;
-        font-weight: bold;
-    }
-    
-    h2 {
-        clear: both;
-    }
-    
-    .needs_splitter li {
-        
-        margin-left: 32px;
-    }
-    
-    
-    .toplist {
-        border: 1px outset gray;
-        padding: 0;
-        margin: 2px;
-    }
-    
-    .tag_group {
-        margin-top: -2px;
-        border: 1px outset blue;
-        background-color: #CCF;
-        cursor: move;
-        -moz-border-radius: 0.25em;
-    }
-    {/literal}
-</style>
+            .groupman li {
+                padding: 2px;
+                -moz-border-radius: 1em;
+
+            }
+
+            .beingDragged{
+                background-color: #CCC;
+            }
+
+
+
+            .droponme {
+                border: 2px solid blue !important;
+
+            }
+
+            .groupman td {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            .tag_person {
+                cursor: pointer;        
+            }
+            .tag_person:hover {
+                text-decoration: underline;
+            }
+
+            .groupman .toplist {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            .innertable td {
+                padding: 3px;
+                min-height: 32px;
+            }
+
+            .grouplist {
+                width: 400px;
+                float: left;
+
+            }
+
+            .tagged {
+                border: 2px solid green !important;
+            }
+
+            .taggedp {
+                background-color: #FFA;
+                font-weight: bold;
+            }
+
+            h2 {
+                clear: both;
+            }
+
+            .needs_splitter li {
+
+                margin-left: 32px;
+            }
+
+
+            .toplist {
+                border: 1px outset gray;
+                padding: 0;
+                margin: 2px;
+            }
+
+            .tag_group {
+                margin-top: -2px;
+                border: 1px outset blue;
+                background-color: #CCF;
+                cursor: move;
+                -moz-border-radius: 0.25em;
+            }
+        {/literal}
+    </style>
 {/capture}
 {include file='include/header.tpl'  ui=1 }
 
@@ -126,7 +126,18 @@
         <form method="get">
             {initializeGetFormFields  regenerate=false }
             <p>{translate id=regenerate_groups_text_2}</p>
-            <p><input name="regenerate" type="submit" value="{translate id=regenerate_groups}" /></p>
+            <div>
+                <label for="pool_size">{translate id=pool_size}</label>
+                <select id="pool_size" class="pool_size">
+                    <option value="3">3</option>
+                    <option value="4" selected="selected">4</option>
+                    <option value="5">5</option>
+                </select>
+
+
+            </div>
+            <p>
+                <input name="regenerate" class=".regenerate" type="submit" value="{translate id=regenerate_groups}" /></p>
         </form>
     </div>
 {else}
@@ -134,15 +145,26 @@
         <form method="get">
             {initializeGetFormFields  regenerate=false }
             <p>{translate id=regenerate_groups_text_1}</p>
-            <p><input name="regenerate"  type="submit" value="{translate id=regenerate_groups}" /></p>
+            <div>
+                <label for="pool_size">{translate id=pool_size}</label>
+                <select id="pool_size" name="pool_size">
+                    <option value="3">3</option>
+                    <option value="4" selected="selected">4</option>
+                    <option value="5">5</option>
+                </select>
+
+
+            </div>
+            <p>
+                <input name="regenerate"  class="regenerate" type="submit" value="{translate id=regenerate_groups}" /></p>
         </form>
     </div>
 {/if}
 
 <form method="post">
     <input type="hidden" name="formid" value="edit_groups" />
-<div  class="buttonarea">
-    <p style="float: right; max-width: 200px;">{translate id=edit_groups_quickhelp}</p>
+    <div  class="buttonarea">
+        <p style="float: right; max-width: 200px;">{translate id=edit_groups_quickhelp}</p>
         <input type="submit" value="{translate id=save}" />
         <input type="submit" name="cancel" value="{translate id=cancel}" />
         <button style="margin-left: 64px" id="reba">{translate id=rebalance_groups}</button>
@@ -151,75 +173,75 @@
     </div>
 
 
-{foreach from=$data item=section}
-    {if $section->present}
-    <div class="groupman" >
-        <input type="hidden" name="e[]" value="sid{$section->id|escape}" />
-        <h2>{$section->name|escape}</h2>
-        <ul class="oddrows grouplist"  style="">            
-            {foreach from=$section->GetGroups() item=group}
-            <li style="clear: right;" class="toplist">
-                <div class="tag_group">
-                    {translate id=group_number number=$group.PoolNumber},
-                    <span class="dispname">{$group.DisplayName|escape}</span>
-                    {if $round->starttype == 'simultaneous'}
-                    <button style="float: right" class="change_hole">{translate id=change_hole}</button>
-                    {/if}
-                </div>
-                <input type="hidden" class="holenum" name="e[]" value="h{$group.StartingHole}" />
-                <input type="hidden" name="e[]" value="gid{$group.GroupId|escape}" />
-                <div class="tcon">
-                    <table class="narrow innertable">
-                        <tbody>
-                            {assign var=nump value=0}
-                        {foreach from=$group.People item=player}
-                            {math assign=nump equation="x + 1" x=$nump}
-                            <tr class="tag_person">
-                                <td style="min-width: 180px;">
-                                    <input type="hidden" name="e[]" value="pid{$player.PlayerId|escape}" />
-                                    <span>{$player.LastName|escape}
-                                    {$player.FirstName|escape}</span></td>
-                                <td>{counter}</td>
-                                <td>{$player.Classification|escape}</td>
-                            </tr>
-                            
-                            
-                        {/foreach}
-                        {if $nump < 1}<tr class="filler"><td>-</td></tr>{/if}
-                            {if $nump < 2}<tr class="filler"><td>-</td></tr>{/if}
+    {foreach from=$data item=section}
+        {if $section->present}
+            <div class="groupman" >
+                <input type="hidden" name="e[]" value="sid{$section->id|escape}" />
+                <h2>{$section->name|escape}</h2>
+                <ul class="oddrows grouplist"  style="">            
+                    {foreach from=$section->GetGroups() item=group}
+                        <li style="clear: right;" class="toplist">
+                            <div class="tag_group">
+                                {translate id=group_number number=$group.PoolNumber},
+                                <span class="dispname">{$group.DisplayName|escape}</span>
+                                {if $round->starttype == 'simultaneous'}
+                                    <button style="float: right" class="change_hole">{translate id=change_hole}</button>
+                                {/if}
+                            </div>
+                            <input type="hidden" class="holenum" name="e[]" value="h{$group.StartingHole}" />
+                            <input type="hidden" name="e[]" value="gid{$group.GroupId|escape}" />
+                            <div class="tcon">
+                                <table class="narrow innertable">
+                                    <tbody>
+                                        {assign var=nump value=0}
+                                        {foreach from=$group.People item=player}
+                                            {math assign=nump equation="x + 1" x=$nump}
+                                            <tr class="tag_person">
+                                                <td style="min-width: 180px;">
+                                                    <input type="hidden" name="e[]" value="pid{$player.PlayerId|escape}" />
+                                                    <span>{$player.LastName|escape}
+                                                        {$player.FirstName|escape}</span></td>
+                                                <td>{counter}</td>
+                                                <td>{$player.Classification|escape}</td>
+                                            </tr>
+
+
+                                        {/foreach}
+                                    {if $nump < 1}<tr class="filler"><td>-</td></tr>{/if}
+                                {if $nump < 2}<tr class="filler"><td>-</td></tr>{/if}
                             {if $nump < 3}<tr class="filler"><td>-</td></tr>{/if}
                         </tbody>
                     </table>
                 </div>
-                
-                
+
+
             </li>
-            {/foreach}
-        </ul>
-    </div>
-    {/if}
+        {/foreach}
+    </ul>
+</div>
+{/if}
 {/foreach}
 
 <br style="clear: both; margin: 16px;" />
 <hr />
 <div  class="buttonarea">
-        <input type="submit" value="{translate id=save}" />
-        <input type="submit" name="cancel" value="{translate id=cancel}" />
-        <p><input class="all" type="checkbox" name="done" {if $round->groupsFinished !== null}checked="checked"{/if} /> {translate id=groups_finished}</p>
-    </div>
+    <input type="submit" value="{translate id=save}" />
+    <input type="submit" name="cancel" value="{translate id=cancel}" />
+    <p><input class="all" type="checkbox" name="done" {if $round->groupsFinished !== null}checked="checked"{/if} /> {translate id=groups_finished}</p>
+</div>
 </form>
 
 <script type="text/javascript">
-//<![CDATA[
+    //<![CDATA[
 
-var retag_error = "{translate id=error_cant_tag_another}";
-var tag_type_error = "{translate id=error_cant_tag_different_type}";
-var move_tagged_object = "{translate id=move_tagged_object_here}";
-var not_between_sections = "{translate id=error_cant_move_between_sections}";
-var change_hole_text = "{translate id=change_hole_prompt}";
-var locked = {if $locked}true{else}false{/if};
+    var retag_error = "{translate id=error_cant_tag_another}";
+    var tag_type_error = "{translate id=error_cant_tag_different_type}";
+    var move_tagged_object = "{translate id=move_tagged_object_here}";
+    var not_between_sections = "{translate id=error_cant_move_between_sections}";
+    var change_hole_text = "{translate id=change_hole_prompt}";
+    var locked = {if $locked}true;{else}false;{/if}
 
-{literal}
+    {literal}
 
 
 var ignoreTagAttempt = false;
@@ -228,10 +250,23 @@ var beingDragged = null;
 var tagged_people = new Array();
 
 $(document).ready(function() {
-    $("#reorg").click(redoColumns);
-    $("#reba").click(rebalanceGroups);    
-    redoColumns();
     
+   
+     
+    
+    $("#reorg").click(redoColumns);
+    $("#reba").click(rebalanceGroups); 
+         poolsize = $('#pool_size').val();
+    redoColumns();
+     $(".regenerate").click(function() {
+       poolsize = $('#pool_size').val();
+        //alert ('poolikoko ' + poolsize);
+        
+            //rebalanceGroups();
+                redoColumns();
+                    //reinit();
+    });
+        
      $(".all").click(synchAll);
     
     
@@ -240,6 +275,7 @@ $(document).ready(function() {
 
 // Duplicated checkbox synchronization
 function synchAll() {
+     
     var c = this.checked;
     $(".all").each(function() {
         this.checked = c;
@@ -248,14 +284,19 @@ function synchAll() {
 
 // Renenerates the columns
 function redoColumns() { 
+        
     $(".groupman").each(function(gmind, gm) {
+   
         if (tagged_group) untag_group();
         var items = $(this).find("li").get();
         $(this).find("ul").remove();
-        
-        
-        var cols = parseInt($("#cols").get(0).value);
-        var percolumn = Math.ceil(items.length / cols);
+            //alert ('itemit '+ items.length);
+                
+        var percolumn = poolsize;
+         
+                
+        var cols = Math.ceil(items.length / percolumn);  
+    
         var elemind = 0;
         
         for (var ind = 0; ind < cols; ++ind) {
@@ -276,8 +317,8 @@ function redoColumns() {
 }
 
 // Attaches event handlers
-function reinit() {  
-   if (locked) return;
+function reinit() { 
+   
    $(".tag_group").click(function(a) {
         if (tagged_people.length != 0) {
             alert(tag_type_error);
@@ -672,40 +713,47 @@ function untag_group() {
     $(".moveToContainer").remove();
 }
 
-function rebalanceGroups(e) {
+function rebalanceGroups(e, poolSize){ 
     if (e) e.preventDefault();
+    if (typeof poolSize != 'undefined' || poolSize == ''){
+        
+        }
     $(".groupman").each(function(){
        
        $(".tcon").each(function() {
         var trs = $(this).find("tr").get();
         var body = $(this).find("tbody").get(0);
+          
         quick_sort(trs, personComparison);
         for (var i = 0; i < trs.length; ++i) {
-            body.appendChild(trs[i]);
+            body.appendbody.appenChild(trs[i]);
         }
        });
        
         var trs = $(this).find(".tcon tr");
-        
-        
-        
-        
         var validPeople = trs.filter(function() {
-            
             return $(this).find("td").length == 3;
         });
         
         
         var trs = trs.get();
+        //alert('trs '+ trs);
         
+        var percolumn = poolsize;
+        var cols = Math.ceil(validPeople.length / percolumn);
+            //alert ('cols' + cols);
+        if (cols==null && cols=="" && cols!==0){
+        cols = $(this).find(".tcon").length;
+        }
         
-        var groupSizes = GetGroupSizes(validPeople.length, $(this).find(".tcon").length);
+        var groupSizes = GetGroupSizes(validPeople.length, cols);
         var trind = 0;
         for (var groupInd = 0; groupInd < groupSizes.length; ++groupInd ) {
             var numPeople = groupSizes[groupInd];
             var body = $(this).find(".tcon tbody").get(groupInd);
             var locked = getNumLockedIn(body);
-            
+            //alert ('bun' + numPeople);
+                //alert ('locked' + locked);
             for (pInd = 0; pInd < numPeople - locked; ++pInd) {
                 var tr;
                 while (true) {
@@ -748,7 +796,55 @@ function GetGroupSizes(people, maxGroups) {
     sizes[3] = 0;
     sizes[4] = 0;
     sizes[5] = 0;
-    
+    //valittu poolikoko
+    if (poolsize!=0){
+        maxGroups++;
+        tree = 0;
+        four = 0;
+        five = 0;
+          
+            var basicPools = Math.floor(people/poolsize);
+            if (poolsize==5){
+                    five = basicPools;    
+                }else if (poolsize==4){
+                   four = basicPools;
+                }else {
+                  tree = basicPools;
+                }
+                
+        while (tree * 3 + four * 4 + five * 5 != people){
+            if (poolsize==5){
+                if (tree * 3 + four * 4 + five * 5 > people)
+                five--;
+                else 
+                four++;
+               
+            }else if (poolsize==4){
+                if (tree * 3 + four * 4 + five * 5 > people)
+                four--;
+                else 
+                tree++;
+               
+            }else {
+               if (tree * 3 + four * 4 + five * 5 > people)
+                tree--;
+                else 
+                four++;
+            }
+        }
+             if (poolsize==5){
+                    sizes[4] = four;
+                    sizes[5] = five;
+                }else if (poolsize==4){
+                    sizes[4] = four;
+                    sizes[5] = five;
+                }else {
+                   sizes[3] = tree;
+                   sizes[4] = four;
+                }
+            
+        
+    }else {
     if (people == 6) {
         sizes[3] = 2;
     } else if (people == 9) {
@@ -772,7 +868,8 @@ function GetGroupSizes(people, maxGroups) {
             sizes[3] = three;
         }
     }
-    
+    }
+        //alert ('size3 ' +sizes[3] + 'size4 ' +sizes[4]  + 'size5 ' +sizes[5]);
     var groups = new Array();
     for (var size = 1; size <= 5; ++size) {
         if (!sizes[size]) continue;
@@ -812,10 +909,10 @@ function personComparison(a, b) {
     return 1;
 }
 
-{/literal}
+    {/literal}
 
 
-//]]>
+        //]]>
 </script>
 
 {include file='include/footer.tpl' noad=true}

@@ -1,6 +1,6 @@
 {**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhm�
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Event creation and editing form
  * 
@@ -85,8 +85,8 @@
     <div>
         <label for="start">{translate id=event_start}</label>
 
-        <input type="text" name="start" value="{$event.start|escape}" id="start" class="useDatePicker" />
-        
+        <input type="text" name="startShow" value="{$event.start|date_format:"%d.%m.%Y"}" id="startShow" class="useDatePicker" />
+        <input type="hidden" name="start" value="{$event.start|escape}" id="start" />
         {formerror field='start'}
     </div>
     
@@ -99,15 +99,16 @@
     
     <div>
         <label for="signup_start">{translate id=event_signup_start}</label>
-        <input id="signup_start" type="text" name="signup_start" value="{$event.signup_start|escape}" class="useDatePicker" />
-        
+        <input id="signup_startShow" type="text" name="signup_start" value="{$event.signup_start|date_format:"%d.%m.%Y"}" class="useDatePicker" />
+        <input id="signup_start" type="hidden" name="signup_start" value="{$event.signup_start|escape}" class="" />
         
         {formerror field='signup_start'}
     </div>
     
     <div>
         <label for="signup_end">{translate id=event_signup_end}</label>
-        <input id="signup_end" type="text" name="signup_end" value="{$event.signup_end|escape}" class="useDatePicker" />
+        <input id="signup_endShow" type="text" name="signup_end" value="{$event.signup_end|date_format:"%d.%m.%Y"}" class="useDatePicker" />
+        <input id="signup_end" type="hidden" name="signup_end" value="{$event.signup_end|escape}" class="" />
         {formerror field='signup_end'}
     </div>
     
@@ -120,11 +121,15 @@
     <div>
         <input id="requireFees_member" type="checkbox" name="requireFees_member" {if $event.requireFees_member} checked="checked" {/if}/>
         <label class="checkboxlabel" for="requireFees_member">{translate id="event_require_member_fee"}</label>
-        
         <br />
-        <input id="requireFees_license" type="checkbox" name="requireFees_license" {if $event.requireFees_license} checked="checked" {/if}/>
-        <label class="checkboxlabel" for="requireFees_license">{translate id="event_require_license_fee"}</label>
+        
 
+
+        <input id="requireFees_license_A" type="radio" name="requireFees_license" value="requireFees_license_A"  {if $event.requireFees_license_A} checked="checked" {/if}/><label class="checkboxlabel" for="requireFees_license_A" >{translate id="event_require_license_fee_A"}</label><br />
+        <input id="requireFees_license_B" type="radio" name="requireFees_license" value="requireFees_license_B"  {if $event.requireFees_license_B} checked="checked" {/if} /> <label class="checkboxlabel" for="requireFees_license_B">{translate id="event_require_license_fee_B"}</label><br />
+        <input id="requireFees_license_B" type="radio" name="requireFees_license" value="requireFees_license_C"  {if $event.requireFees_license_C} checked="checked" {/if} /> <label class="checkboxlabel" for="requireFees_license_C">{translate id="event_require_no_license"}</label><br />
+        
+    
     </div>
     
     <h2>{translate id='event_classes'}</h2>
@@ -143,7 +148,7 @@
     <ul class="editList" id="classListList">
         
     </ul>
-    {formerror field='classes'}
+       {formerror field='classes'}
     
     <h2>{translate id='event_rounds'}</h2>
     <div class="narrow_selects">
@@ -230,7 +235,17 @@ $(document).ready(function(){
     CheckedFormField('eventform', 'td', AjaxField, 'validuser', {delayed: true});
     CheckedFormField('eventform', 'official', AlwaysEmptyField, null);
     CheckedFormField('eventform', 'classList', AlwaysEmptyField, null);
-    
+  
+    /*CheckedFormField('eventform', 'player_limit1' , PositiveIntegerField, null);
+    var numbers = [1,2,3,4,5];
+    for(var i in numbers)
+    {
+            if ($('#player_limit'+i).length){
+                CheckedFormField('eventform', 'player_limit'+i  , PositiveIntegerField, null);
+            }
+            
+    }
+    */
     
     $("#duration").change(durationChanged);
     $("#duration").change();
@@ -249,16 +264,17 @@ $(document).ready(function(){
     
     $('#td').autocomplete(
       { serviceUrl: baseUrl,
-        params: { path : 'autocomplete', id: 'users'} 
+        params: { path : 'autocomplete', id: 'users', usernameRequired: 'true'} 
       } 
     );
     $('#official').autocomplete(
       { serviceUrl: baseUrl,
-        params: { path : 'autocomplete', id: 'users'
+        params: { path : 'autocomplete', id: 'users', usernameRequired: 'true'
       }} 
     );
     $(".useDatePicker").datepicker({
-                            dateFormat: 'yy-mm-dd',
+                            altFormat: "yy-mm-dd", 
+                            dateFormat: 'dd.mm.yy',
                             changeMonth: true,
                             {/literal}
                             dayNames: [{translate id=DayNameArray}],
@@ -273,8 +289,32 @@ $(document).ready(function(){
     $('#addClass').click(addClass);
     $('#addRound').click(addRound);
     $('#addOfficial').click(addOfficial);
-    
-
+        
+    $( "#startShow" ).datepicker( "option", "altField", "#start" );
+         
+            $( "#signup_startShow" ).datepicker(  "option", "altField", "#signup_start");
+           /*  
+    $(function() {
+        $('#signup_startShow').datepicker({
+        onSelect: function(selectedDate) {
+        // custom callback logic here
+    alert(selectedDate);
+    }
+        });
+    });
+        
+$(function() {
+    $('#signup_startShow').datePicker( {
+        selectWeek: true,
+        inline: true,
+        startDate: '01/01/2000',
+        firstDay: 1
+    }).bind('dateSelected', function(e, selectedDate, $td) {
+		alert(selectedDate);
+	});
+});
+        */
+    $( "#signup_endShow" ).datepicker( "option", "altField", "#signup_end" );
 });
     
 });
@@ -319,6 +359,7 @@ var classes = new Array();
 var class_already_in_use = "{translate id=class_already_in_use}";
 var confirm_class_removal = "{translate id=confirm_class_removal}";
 var remove_class_text = "{translate id=remove_class_text}";
+var player_limit = "{translate id=player_limit}";
 
 var confirm_round_removal = "{translate id=confirm_round_removal}";
 var invalid_round ="{translate id=invalid_round}";
@@ -345,7 +386,8 @@ function addAllClasses(e) {
     return false;
 }
 
-function addClass(event, id) {
+function addClass(event, id, limit) {
+    if (null==limit)limit = 0;
     if (event) event.preventDefault();
     
     var select = document.getElementById('classList');
@@ -373,7 +415,6 @@ function addClass(event, id) {
     label.appendChild(text);
     
     var link = document.createElement('button');
-   
     
     text = document.createTextNode(remove_class_text);
     link.appendChild(text);    
@@ -390,7 +431,14 @@ function addClass(event, id) {
      $(link).click(function(e){ removeClass(id); e.preventDefault(); });
     
     select.value = '';
-    
+    //arttu 7.3.2012
+        //alert("id" + id);
+    $('<label style="clear: none;" class="player_limit" for="player_limit' +  id +'">'+player_limit+'<input style="clear: none; min-width: 5px; margin-left: 15px" type="text" id="player_limit'+ id +'" maxlength="3" size="3" name="player_limit' + id +'" class="player_limit" value="'+limit+'" /></label>').appendTo('#class' + id);
+    //$('#class' + id).append('<input type="hidden" name="classlimit" value="myvalue" />');
+
+
+    //$('#player_limit' + id).after('button');
+    //var newElem = $('#input' + num).clone().attr('id', 'input' + newNum);
 }
 
 function removeClass(id) {
@@ -544,10 +592,12 @@ function getUniqueFieldId() {
 
 $(document).ready(function(){ldelim}
             
-                 
-    {foreach from=$event.classes item=class}
-        addClass(null, {$class});
+     {if is_array($event.classes) && count($event.classes) > 0}    
+    {foreach from=$event.classes item=limit key=class}
+        addClass(null, {$class}, {$limit});
     {/foreach}
+    {/if}            
+
     
     {foreach from=$event.rounds item=round}
         addRound(null, "{$round.datestring|escape}", "{$round.time|escape}", '{$round.roundid|escape}');

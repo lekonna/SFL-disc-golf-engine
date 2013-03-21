@@ -1,7 +1,7 @@
 <?php
 /**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmõ
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Registration screen handler
  * 
@@ -32,9 +32,12 @@ function processForm() {
     
         header("Location: " . BaseURL());
         die();
-    }
+    } 
+   
     
-    
+    $club = $_POST['club'];
+    if (!$club) $club = null;
+   
     $lastname = $_POST['lastname'];
     if ($lastname == '') $problems['lastname'] = translate('FormError_NotEmpty');
     
@@ -87,8 +90,7 @@ function processForm() {
     
     require_once('core/user_operations.php');
     
-    
-    $r = RegisterPlayer($username, $password, $email, $firstname, $lastname, $gender, $pdga, $dobYear );
+    $r = RegisterPlayer($username, $password, $email, $firstname, $lastname, $gender, $pdga, $dobYear ,$club);
     if (is_a($r, 'Error')) $r->errorPage = 'error';
     
     
@@ -108,7 +110,7 @@ function processForm() {
         header("Location: " . url_smarty(array('page' => 'registrationdone'), $r));
     }
     
-
+    //logListToFile($r);
     return $r;
             
     

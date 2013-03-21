@@ -1,6 +1,6 @@
 {**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmä
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Event fee payment information
  * 
@@ -20,6 +20,7 @@
  * along with Kisakone.  If not, see <http://www.gnu.org/licenses/>.
  * *}
 {if $mode == 'body'}
+     {if $admin || $visibility=='public'} 
  <div id="event_content">
     {$page->formattedText}    
 </div>
@@ -34,5 +35,6 @@
 {else}
     <p class="signup_status">{translate id=signed_up_not_paid}</p>
     
+{/if}
 {/if}
 {/if}

@@ -1,7 +1,8 @@
 <?php
+
 /**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmõ
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * User info editor
  * 
@@ -26,10 +27,10 @@
  * @param Smarty $smarty Reference to the smarty object being initialized
  * @param Error $error If input processor encountered a minor error, it will be present here
  */
-function InitializeSmartyVariables(&$smarty, $error) {    
-   
-   
-   if ($error) {
+function InitializeSmartyVariables(&$smarty, $error) {
+
+
+    if ($error) {
         $smarty->assign('error', $error->data);
         $user = new User();
         $player = new Player();
@@ -39,32 +40,39 @@ function InitializeSmartyVariables(&$smarty, $error) {
         $player->pdga = $_POST['pdga'];
         $user->email = $_POST['email'];
         $player->gender = $_POST['gender'];
-   } else {
-         if (@$_GET['id']) {
-            if (!IsAdmin()) return Error::AccessDenied();
-            
+    } else {
+        if (@$_GET['id']) {
+            if (!IsAdmin())
+                return Error::AccessDenied();
+
             $getId = $_GET['id'];
-            if (is_numeric($getId)) $userid= $getId;
-            else $userid = GetUserId($getId);
-   
-             $user = GetUserDetails($userid);
-             
-             
-             
-         } else {
+            if (is_numeric($getId))
+                $userid = $getId;
+            else
+                $userid = GetUserId($getId);
+
+            $user = GetUserDetails($userid);
+        } else {
             $user = @$_SESSION['user'];
-         }
-         $player = $user->GetPlayer();
-   }
-   
+        }
+        $player = $user->GetPlayer();
+    }
 
-   
-   $smarty->assign('userdata', $user);
-   $smarty->assign('player', $player);
-   if ($player) $smarty->assign('dob', $player->birthyear . '-1-1');    
+    $clubs = GetClubs();
+    $clublist = array();
+    foreach ($clubs as $club) {
+        $clublist [$club->id] = utf8_encode($club->name);
+    }
+    if (isset($player->club_id))
+    $smarty->assign('selected_club', $player->club_id);
+    $smarty->assign('clublist', $clublist);
+    $smarty->assign('isadmin', @$_SESSION['user']->role == "admin");
+
+    $smarty->assign('userdata', $user);
+    $smarty->assign('player', $player);
+    if ($player)
+        $smarty->assign('dob', $player->birthyear . '-1-1');
 }
-
-
 
 /**
  * Determines which main menu option this page falls under.
@@ -73,4 +81,5 @@ function InitializeSmartyVariables(&$smarty, $error) {
 function getMainMenuSelection() {
     return 'users';
 }
+
 ?>

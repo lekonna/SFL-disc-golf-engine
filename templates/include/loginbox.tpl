@@ -1,6 +1,6 @@
 {*
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmº
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Login box/login information
  * 
@@ -51,7 +51,7 @@
 {else}
     <div class="loginbox">
     <div>{translate id='loginform_loggedin_title'}</div>
-    <div>{translate id='loginform_loggedin_as' user=$user->username firstname=$user->firstname lastname=$user->lastname}</div>
+    <div>{translate id='loginform_loggedin_as' user=$user->username  firstname=$user->firstname lastname=$user->lastname}</div>
     <p><a href="{url page=myinfo}">{translate id='my_info'}</a> |  <a href="{$url_base}?action=logout">{translate id='logout'}</a></p>
     </div>
 {/if}

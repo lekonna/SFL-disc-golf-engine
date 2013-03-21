@@ -1,7 +1,8 @@
 <?php
+
 /*
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhm§
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Autocomplete listing for users
  * 
@@ -21,25 +22,30 @@
  * along with Kisakone.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-function page_Autocomplete($query) {
-    
+function page_Autocomplete($query, $usernameRequired = false) {
+
     $users = GetUsers($query);
     $display = array();
     $data = array();
-    
-    //print_r($users);
-        
-    foreach ($users as $user) {    
-        $display[] = $user->fullname . " (" . $user->username . ")";
-        $data[] = $user->username . " (" . $user->fullname . ")";
-    }
-        
-    
-    return array('suggestions' => $display,
-                 'data' => $data,
-                 'useKeys' => false);
-        
-}
 
+    //print_r($users);
+
+    foreach ($users as $user) {
+        if ($usernameRequired) {
+            if ($user->username != null && $user->username != "") {
+                $display[] = $user->fullname . " (" . $user->username . ")";
+                $data[] = $user->username . " (" . $user->fullname . ")";
+            }
+        } else {
+            $display[] = $user->fullname . " (" . $user->username . ")";
+            $data[] = $user->username . " (" . $user->fullname . ")";
+        }
+    }
+
+
+    return array('suggestions' => $display,
+        'data' => $data,
+        'useKeys' => false);
+}
 
 ?>

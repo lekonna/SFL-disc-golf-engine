@@ -1,6 +1,6 @@
 {**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmõ
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * User info editor
  * 
@@ -46,7 +46,16 @@
     
     {if $player}
     <h2>{translate id='reg_player_info'}</h2>
+     
      <div>
+        <label for="club">{translate id=club}</label>
+        <select id="club" name="club">
+            {html_options options=$clublist selected=$selected_club}
+        </select>
+        {formerror field='club'}
+    </div>
+    
+    <div>
         <label for="pdga">{translate id='pdga_number'}</label>
         <input id="pdga" type="text" name="pdga"  value="{$player->pdga|escape}" />
         {formerror field='pdga'}

@@ -1,7 +1,7 @@
 <?php
 /*
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhm§
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * PDR module initialization
  * 
@@ -161,7 +161,7 @@ function InitializeSmarty() {
    
    require_once ('core/textcontent.php');
    $tc = GetGlobalTextContent('submenu');
-   if ($tc) $smarty->assign('submenu_content', $tc->formattedText);
+   if ($tc) @$smarty->assign('submenu_content', $tc->formattedText);
 
    
    // Default help file; PDR and templates can change it if necessary

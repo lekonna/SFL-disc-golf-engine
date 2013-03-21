@@ -16,6 +16,6 @@ FormError_ShouldBeEmpty     Kentän tulisi olla tyhjä. Joko lisää tietue list
 class_already_in_use    Luokka on jo otettu mukaan kilpailuun.
 confirm_class_removal   Haluatko varmasti poistaa valitun luokan?
 remove_class_text       Poista
-
+player_limit            Pelaajaraja
 FormError_InvalidUser   Virheellinen käyttäjänimi
 FormError_TournamentLevelMismatch   Sarjan ja kilpailun tasojen tulee olla samat.

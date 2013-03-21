@@ -1,7 +1,7 @@
 <?php
 /*
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmõ
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Event listing
  * 
@@ -104,8 +104,8 @@ function InitializeSmartyVariables(&$smarty, $error) {
    if ($title[0] != '!') $title = translate($title);
    else $title = substr($title, 1);
    
-   $smarty->assign('title', $title);
-   
+   $smarty->assign('title', $title); 
+  
     $smarty->assign('events', $events);
     $smarty->assign('loggedon', isset($_SESSION['user']));
     

@@ -1,6 +1,6 @@
 {**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmä
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Leaderboard
  * 
@@ -19,7 +19,9 @@
  * You should have received a copy of the GNU General Public License
  * along with Kisakone.  If not, see <http://www.gnu.org/licenses/>.
  * *}
+ {if $admin || $visibility=='public'} 
  {if $mode == "head"}
+      
  
 <style type="text/css">{literal}
     .resultrow td, .resultrow th {
@@ -162,3 +164,4 @@
     {/foreach}    
 </table>
 {/if}
+    {/if}

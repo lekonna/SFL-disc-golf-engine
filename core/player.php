@@ -1,7 +1,7 @@
 <?php
 /**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmä
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * This file contains the Player class.
  * 
@@ -43,7 +43,7 @@ class Player
     var $lastname;
     var $firstname;
     var $email;
-    
+    var $club_id;
 
     /** ************************************************************************
      * Class constructor
@@ -54,7 +54,8 @@ class Player
                      $birthyear = 0,
                      $firstname = null,
                      $lastname = null,
-                     $email = null)
+                     $email = null,
+                     $club_id = null)
     {
         if ($pdga && $email == null) {
             die('Invalid player construction call ' . print_r(debug_backtrace()));
@@ -72,7 +73,7 @@ class Player
         $this->lastname = $lastname;
         $this->firstname = $firstname;
         $this->email = $email;
-        
+        $this->club_id = $club_id;
         return;
     }
     

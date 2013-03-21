@@ -1,7 +1,7 @@
 <?php
 /**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmõ
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * New event creation handler
  * 
@@ -26,6 +26,7 @@
  * @return Nothing or Error object on error
  */
 function processForm() {
+   
     if (!IsAdmin()) return Error::AccessDenied();
     $problems = array();
     
@@ -58,10 +59,20 @@ function processForm() {
         
     }
     
-    $requireFees = 0;
+     $requireFees = 0;
     if (@$_POST['requireFees_member']) $requireFees += 1;
-    if (@$_POST['requireFees_license']) $requireFees += 2;
-    
+    if (@$_POST['requireFees_license']) {
+       $licenseReq = @$_POST['requireFees_license'];
+        if ($licenseReq=="requireFees_license_A"){
+             $requireFees += 6;
+        }else if ($licenseReq=="requireFees_license_B") {
+             $requireFees += 2;
+        }else {
+            $requireFees =1;
+        }
+       
+    }
+    //if (@$_POST['requireFees_license_B']) $requireFees += 6;
     
     $duration = @$_POST['duration'];
     if ((int)$duration <= 0) $problems['duration'] = translate('FormError_NotPositiveInteger');
@@ -101,6 +112,16 @@ function processForm() {
             } else fail();
         }
     }
+ 
+    //arttu 14.3.2012
+  
+    $class_limits = array();
+        foreach ($classes as $class) {
+            $last = $class[strlen($class)-1];
+            $limit = @$_POST['player_limit'. $last] ;
+             $class_limits[$last] = $limit;
+       }
+     
     
     
     //header("Content-type: text/plain"); print_r($classes); die();
@@ -164,7 +185,7 @@ function processForm() {
         $problems['classList'] = $classes;
         $problems['roundList'] = $rounds;
         $problems['officialList'] = $officials;
-        
+        $problems['player_limit_'] =  $class_limits;
         $error = new Error();
         $error->title = 'New event form error';        
         $error->function = 'InputProcessing:New_Event:processForm';
@@ -175,13 +196,15 @@ function processForm() {
     }
         
 
-    $result = NewEvent($name, $venue, $duration, $contact, $tournament, $level, $start, $signup_start, $signup_end, $classes, $td, $officialIds, $rounds, $requireFees);
+    $result = NewEvent($name, $venue, $duration, $contact, $tournament, $level, $start, $signup_start, $signup_end, $classes, $td, $officialIds, $rounds, $requireFees, $class_limits);
     if (is_a($result, 'Error'))
     {
         $result->errorPage = 'error';
         return $result;
     }
     
+    //arttu    06.07.2012
+    AddEventViewsVisibilities($result, 'public');
     require_once('core/email.php');
     SendEmail(EMAIL_YOU_ARE_TD, $td, GetEventDetails($result));
     

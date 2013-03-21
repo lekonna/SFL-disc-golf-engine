@@ -1,7 +1,7 @@
 <?php
 /**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhm�
+ * Copyright 2009-2010 Kisakone projektiryhm�
  *
  * Functionality used exclusively for Suomen Frisbeeliitto. 
  * 
@@ -22,7 +22,7 @@
  * */
 
 // Not enabled at this time
-define("OVERRIDE_PAYMENTS", true);
+define("OVERRIDE_PAYMENTS", false);
 
 function SFL_FeesPaidForYear($user, $year) {
 //if (!@$_GET['x']) return array(false, false);
@@ -35,12 +35,12 @@ function SFL_FeesPaidForYear($user, $year) {
                             AND  cast( cast(:Player.lastname as binary) as char character set utf8) = sfl_player.lastname                            
                             AND YEAR(:Player.birthdate) = YEAR(sfl_player.birthdate))
                         INNER JOIN :User ON :User.Player = :Player.player_id
-                        WHERE :User.id = %d AND sfl_membership.year = %d ORDER BY sfl_player.pdga = ''"
+                        WHERE :User.id = %d AND sfl_membership.year = %d ORDER BY sfl_player.pdga"
                         , $user, $year);
     $result = mysql_query($query);
     echo mysql_error();
     
-    $membership = false; $license = false;
+    $membership = false; $license = false; $bLisence = false;
     
     $pdgaFound = false;
     
@@ -51,14 +51,14 @@ function SFL_FeesPaidForYear($user, $year) {
         } else {
             if ($pdgaFound) continue;
         }
-        if ($row['license'] == 1) $membership = true;
-        if ($row['license'] == 2) $license = true;
-        
+        if ($row['license'] > 1) $membership = true;
+        if ($row['license'] == 6) $license = true;
+        if ($row['lisense'] == 2) $bLisence = true;
         
     }
     
     mysql_free_result($result);
-    
-    return array($license, $membership);
+    logToFile("membership " . $membership ." a lisenssi " +  $license + " b lis " + $bLisence, "käyttäjän maksut");
+    return array($license, $membership, $bLisence);
 }
 ?>

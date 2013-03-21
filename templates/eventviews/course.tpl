@@ -1,6 +1,6 @@
 {**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmä
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Course info page
  * 
@@ -20,6 +20,7 @@
  * along with Kisakone.  If not, see <http://www.gnu.org/licenses/>.
  * *}
  {if $mode == 'body'}
+      {if $admin || $visibility=='public'} 
  <div id="event_content">
     {$page->formattedText}
 </div>
@@ -76,4 +77,5 @@
     </table>
 <hr style="clear: both" />
 {/foreach}
+{/if}
 {/if}

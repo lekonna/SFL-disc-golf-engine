@@ -1,7 +1,7 @@
 <?php
 /*
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhm§
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Registration form
  * 
@@ -28,11 +28,26 @@
  */
 function InitializeSmartyVariables(&$smarty, $error) {
     language_include('users');
+    SetContentType('text/html; charset=utf-8');
     if ($error) {
+        $clubs = GetClubs();
+        $clublist = array ();
+        foreach ($clubs as $club) {
+            $clublist [$club->id] = $club->name;
+        }
+        $smarty->assign('clublist', $clublist);
         $smarty->assign('initial_date', (int)$_POST['dob_Year'] . '-1-1');
         $smarty->assign('error', $error->data);
         
     } else {
+        $clubs = GetClubs();
+        //$firephp = FirePHP::getInstance(true);
+        //$firephp->info($clubs, 'clubit');
+        $clublist = array ();
+        foreach ($clubs as $club) {
+            $clublist [$club->id] = $club->name;
+        }
+        $smarty->assign('clublist', $clublist);
         $smarty->assign('initial_date', '0-0-0');
     }
 }

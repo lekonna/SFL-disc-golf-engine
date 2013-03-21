@@ -1,6 +1,6 @@
 {*
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhm§
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * User details page
  * 
@@ -80,6 +80,20 @@
                <td >{translate id=user_licensefee}: </td>
                <td>
                   {foreach from=$fees.license key=year item=paid}
+                     {if $paid}
+                        {$year} {translate id=user_ispaid}
+                     {else}
+                        {$year} {translate id=user_notpaid}               
+                     {/if}
+                     <br />
+                  {/foreach}
+     
+               </td>
+            </tr>
+            <tr>
+               <td >{translate id=user_blicensefee}: </td>
+               <td>
+                  {foreach from=$fees.bLicense key=year item=paid}
                      {if $paid}
                         {$year} {translate id=user_ispaid}
                      {else}

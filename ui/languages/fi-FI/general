@@ -139,6 +139,8 @@ dob             Syntymäaika
 firstname       Etunimi
 lastname        Sukunimi
 
+num             #
+
 not_used        Ei käytössä
 
 loginredirect_title     Sisäänkirjautuminen onnistui
@@ -176,3 +178,7 @@ results_cvs             CVS tulokset
 sign_up_here            Ilmoittaudu
 course_map              Radan kartta
 close                   Sulje
+publish    Julkaise
+unpublish   Muuta yksityiseksi
+visibility_public   Sivu on julkinen
+visibility_private  Sivu on yksityinen

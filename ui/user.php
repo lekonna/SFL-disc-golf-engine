@@ -1,7 +1,7 @@
 <?php
 /*
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhm§
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * User details page
  * 
@@ -70,22 +70,32 @@ function User_InitializeSmartyVariables(&$smarty, $error) {
    }
    
    if (IsAdmin() || $itsme) {
-      if (OVERRIDE_PAYMENTS) {
+      if (!OVERRIDE_PAYMENTS) {
          $fees = array('membership' => array(), 'license' => array());
          
          $currentYear = date('Y');
          $years = array($currentYear, $currentYear + 1);
          foreach ($years as $year) {
-            list($license, $membership) = SFL_FeesPaidForYear($user->id, $year);
+            list($license, $membership, $bLisence) = SFL_FeesPaidForYear($user->id, $year);
             $fees['license'][$year] = $license;
             $fees['membership'][$year] = $membership;
+            $fees['bLisence'][$year] = $bLisence;
          }
          
          $smarty->assign('fees', $fees);
          
       }
    }
-
+    /*$clubs = GetClubs();
+    $clublist = array ();
+    foreach ($clubs as $club) {
+        $clublist [$club->id] = $club->name;
+        
+    }
+     $smarty->assign('selected_club', $player->club_id);
+    $smarty->assign('clublist', $clublist);
+     * 
+     */
    $smarty->assign('isadmin', @$_SESSION['user']->role == "admin");
    
 }

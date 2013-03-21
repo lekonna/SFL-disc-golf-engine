@@ -30,8 +30,9 @@ event_management    Hallinnointi
 event_td        TD
 event_official  Toimitsija
 event_add_official  Lisää toimitsija
-
-
+open_positions Vapaata paikkaa
+class_full Luokassa ei vapaita pelipaikkoja, ilmoittautujat siirtyvät jonoon
+no_player_limits Ei pelaajarajoituksia
 
 round_start_time    Kierroksen ajankohta
 event_round_time    kello
@@ -63,9 +64,10 @@ signup_by_end   .
 event_fees      Maksut
 event_enter_results     Syötä tuloksia
 event_cancel_signup     Peruuta ilmoittautuminen
+event_cancel_queue      Peruuta jonotuspaikka
 fee_not_paid    Kilpailumaksua ei maksettu.
 fee_payment_info    Maksuohjeet
-
+fill_open_positions Täytä avoimet paikat jonosta
 
 
 remove_official_text    Poista toimitsija
@@ -73,6 +75,7 @@ confirm_official_removal   Halutko varmasti poistaa valitun toimitsijan?
 
 
 fee     Maksettu
+fee_notpaid Maksu maksamatta
 users_eventfees Kilpailumaksu
 eventfee_remind     Muistutus
 remind      Muistuta maksusta
@@ -89,8 +92,7 @@ pagetitle_schedule      Aikataulu
 pagetitle_course        Rata
 pagetitle_signupinfo       Ilmoittautuminen
 pagetitle_liveresults      Live-tulokset
-
-
+pagetitle_waitinglist   Jonotuslista
 
 relevant_news       Ajankohtaiset uutiset
 news_archive        Uutisarkisto
@@ -107,7 +109,8 @@ create_new_custom_page_link luoda uuden sivun
 event_fees_and_results      Maksut ja tulokset
 event_payment       Kilpailumaksu
 
-
+signupNumber Jononumero
+signupDate Aika
 result_group    Ryhmä
 result_name     Nimi
 result_pdga     PDGA
@@ -190,6 +193,7 @@ date            Ajankohta
 
 remind_all      Muistuta kaikkia, jotka eivät ole maksaneet
 round_number    Kierros {number}
+no_rounds       Kisaan ei ole lisätty yhtään kierrosta
 starttype       Lähtötapa
 group_interval        Ryhmien väli minuuteissa
 sequential      Porrastettu lähtö
@@ -203,10 +207,11 @@ holes_list      Väylät
 round_valid     Kierroksen tulokset huomioidaan kokonaistulokseen
 
 combined_group_name Yhdistelmäluokka
-
+regenerate_section_text_3 Jaa pelaajat uudelleen pooleihin sarjoittain, kaikki tehdyt muutokset menetetään
 regenerate_section_text_2 Kierrokselle osallistuvien pelaajien lista on muuttunut. Voit joko itse pitää huolen, että pelaajat ovat oikeissa paikoissa, tai luoda lohkot uudelleen. Jos luot lohkot uudelleen, muutokset lähtöaikoihin, ryhmiin yms. menetetään.
 regenerate_section_text_1 Voit halutessassi aloittaa puhtaalta pöydällä luomalla lohkot uudelleen. Jos teet näin, muutokset lähtöaikoihin, ryhmiin yms. menetetään.
 regenerate_sections Luo uudelleen
+regenerate_sections_with_groups Jaa lohkot luokittain
 estimated_number_of_groups  {estimate} ryhmää (arvio)
 
 regenerate_groups_text_2 Kierrokselle osallistuvien pelaajien lista on muuttunut. Voit joko itse pitää huolen, että pelaajat ovat oikeissa paikoissa, tai luoda lohkot uudelleen. Jos luot ryhmät uudelleen, aiemmin tehdyt muutokset ryhmiin menetetää.
@@ -231,8 +236,9 @@ holes_title         Väylät
 length              Pituus (m)
 holeNumber          #
 day_index           Päivä {index}
-
-
+event_require_no_license    Ei lisenssivaatimuksia
+event_require_license_fee_A  Vaadi kilpalisenssi (A) osallistujilta
+event_require_license_fee_B  Vaadi B-lisenssi osallisujilta
 event_require_license_fee  Vaadi lisenssimaksu osallistujilta
 event_require_member_fee  Vaadi jäsenmaksu osallistujilta
 event_add_all_classes   Lisää kaikki
@@ -297,6 +303,7 @@ fees_necessary_for_signup      Tähän kilpailuun ilmoittautuminen vaatii jäsen
 fees_necessary_for_signup_1    Tähän kilpailuun ilmoittautuminen vaatii jäsenmaksun maksetuksi.
 fees_necessary_for_signup_2     Tähän kilpailuun ilmoittautuminen vaatii lisenssimaksun maksetuksi.
 fees_necessary_for_signup_3      Tähän kilpailuun ilmoittautuminen vaatii jäsen- ja lisenssimaksujen maksun.
+allready_on_waitinlist      Kilpailija on jo jonotuslistalla
 event_is_locked_cant_edit       Kilpailu on lukittu. Muutokset eivät ole mahdollisia ellei kilpailua avata uudelleen.
 cant_cancel_signup_now      Ilmoittautuminen on sulkeutunut, eikä perumista voi enää tehdä.
 relevant_events        Ajankohtaiset kilpailut
@@ -322,3 +329,8 @@ signature_column        Sarake
 signature_row           Rivi
 update                  Päivitä
 scorecard_perpage       Kortteja kullakin sivulla
+no_pos                  Ei avoimia paikkoja
+error_delete            Jonosta poistaminen epäonnistui
+membership_required     Jäsenmaksu vaaditaan
+licence_a_requiered     A lisenssi vaaditaan
+licence_b_requiered     B lisenssi vaaditaan

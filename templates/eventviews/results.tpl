@@ -1,6 +1,6 @@
 {**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmä
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Results and live results
  * 
@@ -19,7 +19,9 @@
  * You should have received a copy of the GNU General Public License
  * along with Kisakone.  If not, see <http://www.gnu.org/licenses/>.
  * *}
+  {if $admin || $visibility=='public'}
  {if $mode != 'body'}
+ 
  <style type="text/css">{literal}
     .resultrow td, .resultrow th {
         border-right: 1px solid black;
@@ -95,6 +97,7 @@
     
 {/literal}</style>
 {else}
+
  <div id="event_content">
     {$page->formattedText}
 </div>
@@ -570,4 +573,5 @@ id="r{$result.PlayerId}_cpm">{$result.CumulativePlusminus}</td>
     //]]>
     </script>    
 
+{/if}
 {/if}

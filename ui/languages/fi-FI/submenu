@@ -36,6 +36,7 @@ enter_results       Syötä tuloksia
 event_results       Tulokset
 event_live_results  Live-seuranta
 event_competitors   Kilpailijat
+event_waitinglist   Ilmoittautumisjono
 event_schedule      Aikataulu
 event_course        Rata
 event_signup_info   Ilmoittautuminen

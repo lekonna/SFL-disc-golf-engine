@@ -1,7 +1,7 @@
 <?php
 /**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmä
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * This file contains the User class. 
  * 
@@ -245,7 +245,7 @@ class User {
      *
      * Returns true if the username is valid, otherwise returns false.
      */
-    function IsValidUsername( $username)
+    static function IsValidUsername( $username)
     {
         
         $retVal = false;
@@ -287,9 +287,9 @@ class User {
         }
         else if( !empty( $email))
         {
-            $validEmailExpr = "^[0-9A-Za-z~!#$%&_-]([.]?[0-9A-Za-z~!#$%&_-])*" .
-                              "@[0-9A-Za-z~!#$%&_-]([.]?[0-9A-Za-z~!#$%&_-])*$";
-            if( eregi( $validEmailExpr, $email))
+            $validEmailExpr = "/^[0-9A-Za-z~!#$%&_-]([.]?[0-9A-Za-z~!#$%&_-])*" .
+                              "@[0-9A-Za-z~!#$%&_-]([.]?[0-9A-Za-z~!#$%&_-])*$/";
+            if( preg_match( $validEmailExpr, $email))
             {
                 $retVal = true;
             }
@@ -361,16 +361,21 @@ class User {
     */
     function FeesPaidForYear($year, $required) {
         if (!$required) return true;
-        if (OVERRIDE_PAYMENTS) {
-            list($license, $membership) = SFL_FeesPaidForYear($this->id, $year, $required);
+        if (!OVERRIDE_PAYMENTS) {
+            list($license, $membership, $bLisence) = SFL_FeesPaidForYear($this->id, $year, $required);
         } else {
             $player = $this->GetPlayer();
             if (!$player) return array(false, false);
-            list($license, $membership) = GetUserFees($player->id, $year);
+            $license = GetUserFees($player->id, $year);
         }
+        if ($license == false || $license==""  || $license==0 || $license=="0")
+            return false;
+        if (($required == 1) && license < 1) return false;
         
-        if (($required & 1) != 0 && !$membership) return false;
-        if (($required & 2) != 0 && !$license) return false;
+        if (($required == 2 || $required == 3) && (!$license!=2 || !$license!=6) )return false;
+        
+        if (($required == 6 || $required == 7) && (!$license!=6) ) return false;
+        
         return true;
     }
 }

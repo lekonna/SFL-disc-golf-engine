@@ -3,7 +3,7 @@ body, html {
     margin: 0px;
     padding: 0px;
     font-size: 11pt;
-    
+
 }
 
 html, body, #contentcontainer, #maintr2 {
@@ -64,7 +64,7 @@ th{
 
 #sitename {
     margin: 0px;
-    
+
     font-family: verdana;
     font-size: 24px;
     font-weight: bold;
@@ -78,9 +78,9 @@ th{
     font-family: verdana;
     font-size: 16px;
     margin: 4px;
-    
+
 }
- 
+
 
 #sitelogo {
     float: left;
@@ -122,7 +122,7 @@ a {
 }
 
 .evenform label {
-    
+
     float: left;
     clear: both;
     min-width: 140px;
@@ -145,7 +145,7 @@ a {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    
+
 }
 
 #mainmenu a {
@@ -188,8 +188,8 @@ a {
     border-right: 1px solid #525252;
     height: 32px;   
     /*border-left: 1px solid #757575;*/
-    
-    
+
+
 }
 
 
@@ -218,12 +218,12 @@ a {
 
 #content {
     padding: 16px;
-   
+
 }
 
 #adbannercontainer {
     width: 160px;
-    
+
     padding: 0;
     background-color: #ccdae5;
 
@@ -231,16 +231,16 @@ a {
 
 #helpcontainer {
     width: 320px;
-    
-    
+
+
     background-color: #ccdae5;
 
 }
 
 #adbanner {
     height: 300px;
-    
-    
+
+
 }
 
 
@@ -271,11 +271,11 @@ a {
 .form_end input {
     float: right;
     margin-right: 24px;
-    
+
 }
 
 
-.autocomplete-w1 { background:url(img/shadow.png) no-repeat bottom right; position:absolute; top:0px; left:0px; margin:8px 0 0 6px; /* IE6 fix: */ _background:none; _margin:0; }
+.autocomplete-w1 { background:url(shadow.png) no-repeat bottom right; position:absolute; top:0px; left:0px; margin:8px 0 0 6px; /* IE6 fix: */ _background:none; _margin:0; }
 .autocomplete { border:1px solid #999; background:#FFF; cursor:default; text-align:left; max-height:350px; overflow:auto; margin:-6px 6px 6px -6px; /* IE6 specific: */ _height:350px;  _margin:0; _overflow-x:hidden; }
 .autocomplete .selected { background:#F0F0F0; }
 .autocomplete div { padding:2px 5px; white-space:nowrap; }
@@ -335,10 +335,10 @@ a {
 
 .note {
     font-size: 0.8em;
-    }
-    
-    .narrow { width: auto; }
-    
+}
+
+.narrow { width: auto; }
+
 .breadcrumb, .breadcrumb li {
     list-style-type: none;
     padding: 0;
@@ -412,3 +412,170 @@ a img { border: none;}
     display: inline-block;
     margin-right: 8px;
 }
+
+/*Arttu 7.3.2012*/
+.red 
+{ color: red;}
+.evenform .player_limit input[type="text"] 
+{
+    clear: none;
+    height: 12px;
+    min-width: 5px;
+    margin-bottom: 1em;
+}
+
+.evenform label.player_limit {
+    height: 11px;
+    clear: none;
+    float: left;
+    /*min-width: 5px;*/
+}
+/*arttu 18.4.2012 */
+.openPositions 
+{
+    float: left;
+    height: 10px;
+    color: blue;
+
+}
+.openPositions label 
+{
+    color: black;
+    clear:both;
+    height: 10px;
+    margin-left: 10px; 
+}
+.private_visibility h2 {
+    background-image: none;
+    color: black;
+    background-color: #E00000;
+}
+.event_visibility_wrapper {
+
+}
+
+.event_visibility_change {
+    float: right;
+    position: relative;
+    right: 0;
+    top: 0;
+    border: solid grey 1px;
+}
+
+
+.event_visibility_change a, .event_visibility_change button{
+    display:block;
+    float:left;
+    /*margin:0 7px 0 0;*/
+    background-color:#66CCCC;
+    border:1px solid #dedede;
+    border-top:1px solid #eee;
+    border-left:1px solid #eee;
+    font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    font-size:12px;
+    line-height:130%;
+    text-decoration:none;
+    font-weight:bold;
+    color:#565656;
+    cursor:pointer;
+    padding:2px 10px 2px 2px; /* Links */
+}
+.event_visibility_change button{
+    width:auto;
+    overflow:visible;
+    padding:2px 10px 2px 2px; /* IE6 */
+}
+.event_visibility_change button[type]{
+    padding:5px 10px 5px 7px; /* Firefox */
+    line-height:17px; /* Safari */
+}
+*:first-child+html button[type]{
+    padding:2px 10px 2px 2px; /* IE7 */
+}
+.event_visibility_change button img, .buttons a img{
+    margin:0 3px -3px 0 !important;
+    padding:0;
+    border:none;
+    width:14px;
+    height:14px;
+}
+
+/* STANDARD */
+
+button:hover, .event_visibility_change a:hover{
+    background-color:#dff4ff;
+    border:1px solid #c2e1ef;
+    color:#336699;
+}
+.event_visibility_change a:active{
+    background-color:#6299c5;
+    border:1px solid #6299c5;
+    color:#fff;
+}
+
+/* POSITIVE */
+
+button.positive, .event_visibility_changea.positive{
+    color:#529214;
+}
+.event_visibility_change a.positive:hover, button.positive:hover{
+    background-color:#E6EFC2;
+    border:1px solid #C6D880;
+    color:#529214;
+}
+.event_visibility_change a.positive:active{
+    background-color:#529214;
+    border:1px solid #529214;
+    color:#fff;
+}
+
+/* NEGATIVE */
+
+.event_visibility_change a.negative, button.negative{
+    color:#d12f19;
+}
+.event_visibility_change a.negative:hover, button.negative:hover{
+    background:#fbe3e4;
+    border:1px solid #fbc2c4;
+    color:#d12f19;
+}
+.event_visibility_change a.negative:active{
+    background-color:#d12f19;
+    border:1px solid #d12f19;
+    color:#fff;
+}
+
+/* REGULAR */
+
+.event_visibility_change button.regular, .event_visibility_change .buttons a.regular{
+    color:#336699;
+}
+.event_visibility_change a.regular:hover, button.regular:hover{
+    background-color:#dff4ff;
+    border:1px solid #c2e1ef;
+    color:#336699;
+}
+.event_visibility_change a.regular:active{
+    background-color:#6299c5;
+    border:1px solid #6299c5;
+    color:#fff;
+}
+.visibility_bar_public 
+{
+width: 100%;
+height: 20px;
+background-color: #3399CC;
+border-radius: 5px 5px 5px 5px;
+
+    
+}
+.visibility_bar_private 
+{
+width: 100%;
+height: 20px;
+background-color: #FFCC00;
+border-radius: 5px 5px 5px 5px;
+
+    
+}
+

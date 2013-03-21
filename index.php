@@ -1,7 +1,7 @@
 <?php
 /**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmä
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * This file serves as the one and only interface users have for the PHP code. In fact,
  * whenever mod_rewrite is enabled, access to other php files is explicitly made
@@ -425,7 +425,22 @@ function PageIs($pageName) {
    return $pageName == $fullPageName;
    
 }
-
+//8.5.2012 Arttu, function checks if players in events waintinglist
+function PlayersWaitingOnEvent($eventId, $classId = null){
+        return checkIfPlayersInWaitingList($eventId, $classId);
+    }
+    
+    //6.7.2012 Arttu, function checks if event view is public
+function CheckIfEventViewPublic($eventId, $view, $user=false){
+        //true if public 
+    //if admin, return allways true
+    if ($user!=false){
+        if ($user->IsAdmin())
+        return true;    
+    }
+        
+        return CheckEventViewsPublicity($eventId, $view);
+    }
 // Set the content type for the request; this function should be used instead
 // of a simple header() call, as otherwise the type will be replaced later on.
 function SetContentType($type) {

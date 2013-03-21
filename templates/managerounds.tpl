@@ -1,6 +1,6 @@
 {**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmä
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Round management
  * 
@@ -34,6 +34,8 @@
         <input type="submit" name="cancel" value="{translate id=cancel}" />
     </div>
     {counter start=0 assign=globalHole}
+    
+    {if empty($var)} <h3>{translate id=no_rounds}</h3> {/if}
     {foreach from=$rounds item=round key=index}
         {math assign=number equation="x + 1" x=$index}
         <div class="round">

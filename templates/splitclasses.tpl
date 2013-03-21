@@ -1,6 +1,6 @@
 {*
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhm§
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Splitting classes into multiple sections
  * 
@@ -107,6 +107,8 @@
             {initializeGetFormFields  regenerate=false }
             <p>{translate id=regenerate_section_text_2}</p>
             <p><input name="regenerate" type="submit" value="{translate id=regenerate_sections}" /></p>
+            
+            
         </form>
     </div>
 {else}
@@ -115,6 +117,10 @@
             {initializeGetFormFields  regenerate=false }
             <p>{translate id=regenerate_section_text_1}</p>
             <p><input name="regenerate"  type="submit" value="{translate id=regenerate_sections}" /></p>
+            
+            
+            <p>{translate id=regenerate_section_text_3}</p>
+            <p><input name="regenerateWithGroups" type="submit" value="{translate id=regenerate_sections_with_groups}" /></p>
         </form>
     </div>
 {/if}

@@ -1,7 +1,7 @@
 <?php
 /**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmõ
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Edit my info ui backend
  * 
@@ -56,6 +56,9 @@ function processForm() {
     $email = $_POST['email'];
     if (!preg_match('/^.+@.+\..+$/', $email)) $problems['email'] = translate('FormError_InvalidEmail');
     
+     $club = $_POST['club'];
+    if (!$club) $club = null;
+    
     $player = $eduser->GetPlayer();
     
     if ($player) {
@@ -90,7 +93,7 @@ function processForm() {
         return $error;
     }
     
-    $result = EditUserInfo($uid, $email, $firstname, $lastname, $gender, $pdga, $dobYear );
+    $result = EditUserInfo($uid, $email, $firstname, $lastname, $gender, $pdga, $dobYear, $club );
     if (!is_a($result, 'Error')) {
         if (!$username) {
             $user->playerCache = null;

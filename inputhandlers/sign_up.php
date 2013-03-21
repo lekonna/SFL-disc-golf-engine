@@ -1,7 +1,7 @@
 <?php
 /*
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhm§
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Signs user up for an event
  * 
@@ -56,7 +56,7 @@ function processForm() {
     
     $player = $user->GetPlayer();
     $class = GetClassDetails(@$_POST['class']);
-
+    
     if (!$player->IsSuitableClass($class)) {
         $error = new Error();
         $error->title = 'invalid_class_selection';        
@@ -65,15 +65,16 @@ function processForm() {
         $error->isMajor= true;        
         return $error;
     }
-    
+   
     $fees = $event->FeesRequired();
     if ($fees) {
         if (!$user->FeesPaidForYear(date('Y', $event->startdate), $fees)) {
             return Error::AccessDenied();
         }
      }
+     
     
-    
+     
     $result = SignupUser($event->id, $user->id, $class->id);
     
     
@@ -82,6 +83,10 @@ function processForm() {
         return $result;
     }
     
+    if (is_numeric($result)){
+        header("Location: " . url_smarty(array('page' => 'event', 'id' => @$_GET['id'], 'view' => 'waitinglist'), $nothing));
+        die();
+    }
     $variableNeededAsItsReference = null;
     header("Location: " . url_smarty(array('page' => 'event', 'id' => @$_GET['id'], 'view' => 'payment'), $nothing));
         

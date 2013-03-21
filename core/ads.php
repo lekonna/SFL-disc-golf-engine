@@ -2,7 +2,7 @@
 
 /**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmä
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * This file includes the Ad class, and other general support functionality for ads
  * 
@@ -150,7 +150,10 @@ class Ad {
             return translate('too_much_ad_recursion');
         }
         $ad_render_depth++;
-        $retVal = call_user_method("Render" . $this->type, $this);
+        //$retVal = call_user_method("Render" . $this->type, $this);
+        //arttu 7.3.2012
+        $retVal = $this->{Render . $this->type}();
+
         
         $ad_render_depth--;
         

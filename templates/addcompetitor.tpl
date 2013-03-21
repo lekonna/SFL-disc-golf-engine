@@ -1,6 +1,6 @@
 {**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmõ
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * This file is the UI for adding competitors to an event
  * 
@@ -68,7 +68,7 @@ $(document).ready(function(){
             <tr>
                 <td><a href="{url page=addcompetitor id=$smarty.get.id user=$user->id}">{translate id=select}</a></td>
                 <td>{$player->pdga|escape}</td>
-                <td>{$user->fullname|escape}</td>
+                <td>{$user->fullname | escape}</td>
                 
                 <td>
                     {if $user->username}

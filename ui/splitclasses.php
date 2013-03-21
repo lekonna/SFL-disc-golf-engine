@@ -1,7 +1,7 @@
 <?php
 /*
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhm§
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Splitting classes into multiple sections
  * 
@@ -57,7 +57,11 @@ function InitializeSmartyVariables(&$smarty, $error) {
       $round->RegenerateSections();
       header("Location: " . url_smarty(array('page' => 'splitclasses', 'id' => @$_GET['id'], 'round' => @$_GET['round']), $_GET));
       die();
-   } else {
+   } else if (@$_GET['regenerateWithGroups']) {
+       
+       $round->RegenerateSectionsWithGroups();
+       
+   }else {
       if ($round->InitializeSections()) {
          $smarty->assign('suggestRegeneration', true);
       }

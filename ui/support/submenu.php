@@ -50,6 +50,9 @@ function page_getSubMenu() {
     // First, gather any information we'll need for the menu
     $id = @$_GET['id'];
     
+    if ($id!=null && $id!=''){
+        
+    }
     // Event archive menu is an example of dynamic menu items; created here so that it can be appended to the actual menu later on
     $archivedEvents = array();
     foreach (GetEventYears() as $year) {
@@ -113,7 +116,7 @@ function page_getSubMenu() {
             )),
             array('open' => 'auto', 'title' => translate('submenu_manage'), 'link' => array('page' => 'manage_users'), 'access' => 'admin', 'children' => array(
                 array('title' => translate('submenu_manage_fees_item'), 'link' => array('page' => 'managefees' ), 'access' => null, 'children' => array(),
-                      'condition' => !OVERRIDE_PAYMENTS),            
+                      'condition' => !'OVERRIDE_PAYMENTS'),            
                 array('title' => translate('submenu_ban_and_remove_users'), 'link' => array('page' => 'manageaccess' ), 'access' => null, 'children' => array()),
                 array('title' => translate('submenu_new_admin'), 'link' => array('page' => 'newadmin' ), 'access' => null, 'children' => array()),
                 
@@ -156,19 +159,20 @@ function page_getSubMenu() {
         $eventData = array('title' => pdr_GetEventName($id), 'link' => array('page' => 'event', 'id' => $id), 'access' => null, 'children' => array(
             array('title' => translate('event_info'), 'link' => array('page' => 'event', 'id' => $id, 'view' => ''), 'access' => null, 'children' => array(
                 array('title' => translate('event_newsarchive'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'newsarchive'), 'access' => null, 'children' => array()),
-            )),
+            ), 'condition' => @$_GET['id'] && CheckIfEventViewPublic(@$_GET['id'], 'index', $user)),
             /*array('title' => translate('event_news'), 'link' => array('page' => 'news', 'id' => $id, 'view' => ''), 'access' => null, 'children' => array()),*/
             array('title' => translate('event_results'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'results'), 'access' => null, 'children' => array(
-                            array('title' => translate('event_live_results'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'liveresults'), 'access' => null, 'children' => array()),
-                            array('title' => translate('event_leaderboard'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'leaderboard'), 'access' => null, 'children' => array())
-            )),
-            array('title' => translate('event_competitors'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'competitors'), 'access' => null, 'children' => array()),
-            array('title' => translate('event_course'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'course'), 'access' => null, 'children' => array()),
-            array('title' => translate('event_schedule'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'schedule'), 'access' => null, 'children' => array()),
+                            array('title' => translate('event_live_results'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'liveresults'), 'access' => null, 'children' => array(), 'condition' => @$_GET['id'] && CheckIfEventViewPublic(@$_GET['id'], 'liveresults', $user)),
+                            array('title' => translate('event_leaderboard'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'leaderboard'), 'access' => null, 'children' => array(), 'condition' => @$_GET['id'] && CheckIfEventViewPublic(@$_GET['id'], 'leaderboard', $user))
+            ), 'condition' => @$_GET['id'] && CheckIfEventViewPublic(@$_GET['id'], 'event_results', $user)),
+            array('title' => translate('event_competitors'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'competitors'), 'access' => null, 'children' => array(), 'condition' => @$_GET['id'] && CheckIfEventViewPublic(@$_GET['id'], 'competitors', $user)),
+            array('title' => translate('event_waitinglist'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'waitinglist'), 'access' => null, 'children' => array(), 'condition' => @$_GET['id'] && PlayersWaitingOnEvent(@$_GET['id']) && CheckIfEventViewPublic(@$_GET['id'], 'course', $user)),
+            array('title' => translate('event_course'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'course'), 'access' => null, 'children' => array(), 'condition' => @$_GET['id'] && CheckIfEventViewPublic(@$_GET['id'], 'course', $user)),
+            array('title' => translate('event_schedule'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'schedule'), 'access' => null, 'children' => array(), 'condition' => @$_GET['id'] && CheckIfEventViewPublic(@$_GET['id'], 'schedule', $user)),
             array('title' => translate('event_signup_info'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'signupinfo'), 'access' => null, 'children' => array(
-                array('title' => translate('event_payment'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'payment'), 'access' => null, 'children' => array()),
+                array('title' => translate('event_payment'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'payment'), 'access' => null, 'children' => array(), 'condition' => @$_GET['id'] && CheckIfEventViewPublic(@$_GET['id'], 'event_payment', $user)),
                 array('title' => translate('event_cancel_signup'), 'link' => array('page' => 'event', 'id' => $id, 'view' => 'cancelsignup'), 'access' => null, 'children' => array(), 'condition' => @$_GET['view'] == 'cancelsignup'),
-            )),            
+            ), 'condition' => @$_GET['id'] && CheckIfEventViewPublic(@$_GET['id'], 'signupinfo', $user)),            
             
             
             

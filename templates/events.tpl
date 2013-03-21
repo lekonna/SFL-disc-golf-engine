@@ -1,6 +1,6 @@
 {*
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmõ
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Event listing
  * 
@@ -70,6 +70,8 @@
                     {if $event->SignupPossible()}
                         {if $event->approved !== null}
                             <a href="{url page='event' view=cancelsignup id=$event->id}">{translate id=event_cancel_signup}</a>
+                        {elseif $event->waiting_number!==null}
+                            <a href="{url page='event' view=cancelqueue id=$event->id}">{translate id=event_cancel_queue}</a>
                         {elseif $user->role != 'admin' && $user->role != 'manager' && $event->management != 'td'}
                         
                             <a href="{url page='event' view=signupinfo id=$event->id}">{translate id=event_signup}</a>

@@ -1,6 +1,6 @@
 {**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmä
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Competitor listing
  * 
@@ -20,6 +20,7 @@
  * along with Kisakone.  If not, see <http://www.gnu.org/licenses/>.
  * *}
  {if $mode == 'body'}
+      {if $admin || $visibility=='public'} 
 <div id="event_content">
     {$page->formattedText}
 </div>
@@ -41,9 +42,9 @@
     <th>{sortheading field=LastName id=lastname sortType=alphabetical}</th>
       <th>{sortheading field=FirstName id=firstname sortType=alphabetical}</th>
       <th>{sortheading field=ClassName id=class sortType=alphabetical}</th>
-      
       <th>{sortheading field=pdga id=users_pdga sortType=integer}</th>      
-      
+      <th>{sortheading field=club id=club sortType=alphabetical}</th>
+      <th>{sortheading field=Eventfee id=users_eventfees sortType=alphabetical}</th>
    </tr>
 
    {foreach from=$participants item=participant}
@@ -54,9 +55,15 @@
         <td><a href="{url page=user id=$participant.user->username}">{$participant.user->lastname|escape}</a></td>
         <td><a href="{url page=user id=$participant.user->username}">{$participant.user->firstname|escape}</a></td>
         <td>{$participant.className|escape}</td>
-         <td>{$participant.player->pdga|escape}</td>         
-         
-     </tr>
+         <td>{$participant.player->pdga|escape}</td>   
+         <td>{$participant.player->club_id|escape}</td>   
+         <td>{if $participant.eventFeePaid !== null}
+             {translate id=fee} {$participant.eventFeePaid|date_format:"%d.%m.%Y %H:%M"}
+             {else}
+                 <span class="red">{translate id=fee_notpaid}</span>
+             {/if}
+         </td>        
+    </tr>
    {/foreach}     
 </table>
 
@@ -82,3 +89,4 @@ $(document).ready(function(){
 </script>
 
 {/if}
+    {/if}

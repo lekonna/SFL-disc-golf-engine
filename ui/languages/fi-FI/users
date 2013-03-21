@@ -18,7 +18,8 @@ user_email  Sähköposti
 user_gender Sukupuoli
 user_yearofbirth  Syntymävuosi
 user_pdga_number  PDGA-numero
-user_licensefee   Lisenssimaksu
+user_licensefee   Kilpalisenssimaksu
+user_blicensefee   B-Lisenssimaksu
 user_membershipfee Liiton jäsenmaksu
 user_ispaid maksettu
 user_notpaid maksamatta
@@ -37,7 +38,7 @@ reg_player_info Kilpailijatiedot
 day_default     pp
 month_default   kk
 year_default    vvvv
-
+club            Seura
 
 email               Sähköposti
 birthyear           Syntymävuosi

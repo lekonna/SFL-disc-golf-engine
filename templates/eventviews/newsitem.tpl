@@ -1,6 +1,6 @@
 {**
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhmä
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * Single news item
  * 
@@ -20,8 +20,10 @@
  * along with Kisakone.  If not, see <http://www.gnu.org/licenses/>.
  * *}
  {if $mode == 'body'}
+      {if $admin || $visibility=='public'} 
  <h3>{$item->title}</h3>
 <div>{$item->date|date_format:"%d.%m.%Y %H:%M:%S"}</div>
 <div>{$item->content}</div>
 
+{/if}
 {/if}
