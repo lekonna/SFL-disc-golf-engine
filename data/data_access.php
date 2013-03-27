@@ -2455,15 +2455,16 @@ function GetEventParticipants($eventId, $sortedBy, $search) {
                   LEFT JOIN sfl_clubs ON sfl_clubs.club_id = :Player.club_id
                   WHERE %s
                   ORDER BY $sortOrder
-                  
                   ";
 
     $query = data_query($query, data_ProduceSearchConditions($search, array('FirstName', 'LastName', 'pdga', 'Username', 'birthdate')));
 
     $result = mysql_query($query);
     require_once('core/player.php');
-    echo mysql_error();
-    if (mysql_num_rows($result) > 0) {
+    if (!$result) {
+        die("query failed: ".mysql_error()." : ".Error::Query($query));
+    }
+    else if (mysql_num_rows($result) > 0) {
         while ($row = mysql_fetch_assoc($result)) {
             $pdata = array();
 
@@ -2483,7 +2484,8 @@ function GetEventParticipants($eventId, $sortedBy, $search) {
         }
     }
 
-    mysql_free_result($result);
+    if ($result)
+        mysql_free_result($result);
 
     return $retValue;
 }
@@ -4963,7 +4965,9 @@ function checkIfPlayersInWaitingList($eventId, $classId = null) {
     }
     $query = data_query("SELECT Player FROM :Waitinglist WHERE Event = %d ", $eventId);
     $result = mysql_query($query);
-    if (mysql_num_rows($result) > 0) {
+    if (!$result) {
+	die("query failed: ".mysql_error()." : ".Error::Query($query));
+    } else if (mysql_num_rows($result) > 0) {
         return true;
     }
     return false;
@@ -4991,7 +4995,9 @@ function checkEventViewVisibility($eventId, $viewName) {
     }
     $query = data_query("SELECT visibility FROM :Event_views_visibility WHERE Event = %d AND View LIKE '%s'", $eventId, $viewName);
     $result = mysql_query($query);
-    if (mysql_num_rows($result) > 0) {
+    if (!$result) {
+        die("query failed: ".mysql_error()." : ".Error::Query($query));
+    } else if (mysql_num_rows($result) > 0) {
         $row = mysql_fetch_assoc($result);
         $visibility = $row['visibility'];
     } else {
@@ -5069,7 +5075,10 @@ function CheckEventViewsPublicity($eventId, $view) {
     $query = data_query("SELECT visibility FROM :Event_views_visibility WHERE Event = %d AND View LIKE '%s'", $eventId, $view);
 
     $result = mysql_query($query);
-    if (mysql_num_rows($result) > 0) {
+    if (!$result) {
+	die("query failed: ".mysql_error()." : ".Error::Query($query));
+    }
+    else if (mysql_num_rows($result) > 0) {
         $row = mysql_fetch_assoc($result);
         $visibility = $row['visibility'];
         if ($visibility === 'public') {
