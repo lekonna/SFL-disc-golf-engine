@@ -6,3 +6,5 @@
 # Can also ignore all directories and files in a directory.
 FirePHPCore/
 nbproject/
+Smarty/templates_c/
+*.tumi
