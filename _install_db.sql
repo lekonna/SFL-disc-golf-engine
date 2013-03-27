@@ -1,5 +1,4 @@
 
-
 CREATE TABLE :Player
 (
    player_id SMALLINT NOT NULL AUTO_INCREMENT,
@@ -11,6 +10,7 @@ CREATE TABLE :Player
    firstname VARCHAR(100),
    birthdate DATE,
    email VARCHAR(150),
+   club_id int(11),
    PRIMARY KEY(player_id),
    INDEX(pdga)
 );
@@ -32,7 +32,6 @@ CREATE TABLE :User
    INDEX (Username, Password)
 );
 SHOW WARNINGS;
-
 
 CREATE TABLE :Venue
 (
@@ -91,7 +90,6 @@ CREATE TABLE IF NOT EXISTS `:AdBanner` (
   FOREIGN KEY (`ImageReference`) REFERENCES :File(id),
   PRIMARY KEY  (`id`)
 );
-
 SHOW WARNINGS;
 
 CREATE TABLE :Event
@@ -110,6 +108,8 @@ CREATE TABLE :Event
    ContactInfo VARCHAR(250) NOT NULL,
    FeesRequired TINYINT NOT NULL,
    AdBanner INT NULL,
+   PlayerLimit int(11),
+   state enum('private','public') default 'private',
    PRIMARY KEY(id),
    FOREIGN KEY (Venue) REFERENCES :Venue(id),
    FOREIGN KEY (Tournament) REFERENCES :Tournament(id),
@@ -146,9 +146,6 @@ CREATE TABLE :TextContent
 );
 SHOW WARNINGS;
 
-
-
-
 CREATE TABLE :Classification
 (
    id INT NOT NULL AUTO_INCREMENT,   
@@ -157,16 +154,9 @@ CREATE TABLE :Classification
    MaximumAge INT,
    GenderRequirement CHAR(1),
    Available TINYINT NOT NULL,
-   
-   
-   
    PRIMARY KEY(id),
    INDEX(Available)
 );
-SHOW WARNINGS;
-
-
-
 SHOW WARNINGS;
 
 CREATE TABLE :Course
@@ -239,6 +229,7 @@ CREATE TABLE :Participation
    DidNotFinish TINYINT NOT NULL,
    SignupTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
    TournamentPoints INT NULL,
+   SignUpNumber int(11),
    PRIMARY KEY(id),
    FOREIGN KEY (Player) REFERENCES :Player(player_id),
    FOREIGN KEY (Event) REFERENCES :Event(id),
@@ -328,6 +319,7 @@ CREATE TABLE :ClassInEvent
    id INT NOT NULL AUTO_INCREMENT,
    Classification INT NOT NULL,
    Event INT NOT NULL,
+   ClassPlayerLimit INT,
    PRIMARY KEY(id),
    FOREIGN KEY (Classification) REFERENCES :Classification(id),
    FOREIGN KEY (Event) REFERENCES :Event(id)
@@ -353,3 +345,14 @@ CREATE TABLE :MembershipPayment
    FOREIGN KEY (Player) REFERENCES :Player(player_id)
 );
 SHOW WARNINGS;
+
+CREATE TABLE :Club 
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  name varchar(100) NOT NULL,
+  short_name varchar(15) NOT NULL,
+  region varchar(50),
+  contact varchar(100),
+  PRIMARY KEY(id)
+);
+
