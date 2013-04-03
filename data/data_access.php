@@ -69,6 +69,12 @@ function esc_or_null($param, $type = 'string') {
                     $retValue = "'" . $param . "'";
                 }
                 break;
+	    case 'pdgastatus':
+		$param = strtolower($param);
+		if ($param == 'A' || $param == 'P') {
+			$retValue = "'" . $param ."'";
+		}
+		break;
             case 'bool':
                 if ($param) {
                     $retValue = 1;
@@ -792,7 +798,7 @@ function GetClasses($onlyAvailable = false) {
     }
     $retValue = array();
 
-    $query = "SELECT id, Name, MinimumAge, MaximumAge, GenderRequirement, Available FROM :Classification";
+    $query = "SELECT id, Name, GenderRequirement, MinimumAge, MaximumAge, MinimumRating, MaximumRating, PdgaStatusRequirement, Available FROM :Classification";
     if ($onlyAvailable) {
         $query .= " WHERE Available <> 0";
     }
@@ -800,10 +806,13 @@ function GetClasses($onlyAvailable = false) {
     $query = data_query($query);
 
     $result = mysql_query($query);
+    if(!$result) {
+	return Error::Query($query);
+    }
     if (mysql_num_rows($result) > 0) {
         while ($row = mysql_fetch_assoc($result)) {
-            $retValue[] = new Classification($row['id'], $row['Name'], $row['MinimumAge'],
-                            $row['MaximumAge'], $row['GenderRequirement'], $row['Available']);
+            $retValue[] = new Classification($row['id'], $row['Name'], $row['GenderRequirement'], $row['MinimumAge'],
+                            $row['MaximumAge'], $row['minRating'], $row['maxRating'], $row['PdgaStatusRequirement'], $row['Available']);
         }
     }
 
@@ -821,12 +830,12 @@ function GetClassDetails($classId) {
     $retValue = null;
     $classId = (int) $classId;
 
-    $query = data_query("SELECT id, Name, MinimumAge, MaximumAge, GenderRequirement, Available FROM :Classification WHERE id = $classId");
+    $query = data_query("SELECT id, Name, GenderRequirement, MinimumAge, MaximumAge, MinimumRating, MaximumRating, PdgaStatusRequirement, Available FROM :Classification WHERE id = $classId");
     $result = mysql_query($query);
     if (mysql_num_rows($result) == 1) {
         $row = mysql_fetch_assoc($result);
-        $retValue = new Classification($row['id'], $row['Name'], $row['MinimumAge'],
-                        $row['MaximumAge'], $row['GenderRequirement'], $row['Available']);
+        $retValue = new Classification($row['id'], $row['Name'], $row['GenderRequirement'], $row['MinimumAge'],
+                        $row['MaximumAge'], $row['MinimumRating'], $row['MaximumRating'], $row['PdgaStatusRequirement'], $row['Available']);
     }
 
     mysql_free_result($result);
@@ -948,7 +957,7 @@ function GetEventClasses($event) {
     $retValue = array();
     $event = (int) $event;
     //arttu 14.3.2012
-    $result = mysql_query(data_query("SELECT :Classification.id, Name, MinimumAge, MaximumAge, GenderRequirement, Available, :ClassInEvent.ClassPlayerLimit
+    $result = mysql_query(data_query("SELECT :Classification.id, Name, GenderRequirement, MinimumAge, MaximumAge, MinimumRating, MaximumRating, PdgaStatusRequirement, Available, :ClassInEvent.ClassPlayerLimit
                                          FROM :Classification, :ClassInEvent 
                                          WHERE :ClassInEvent.Classification = :Classification.id AND
                                          :ClassInEvent.Event = $event ORDER BY Name"));
@@ -1867,14 +1876,14 @@ function GetTextContentByTitle($eventid, $title) {
     return $retValue;
 }
 
-function EditClass($id, $name, $minage, $maxage, $gender, $available) {
+function EditClass($id, $name, $gender, $minage, $maxage, $minrating, $maxrating, $pdgastatus, $available) {
     $dbError = InitializeDatabaseConnection();
     if ($dbError) {
         return $dbError;
     }
 
-    $query = data_query("UPDATE :Classification SET Name = '%s', MinimumAge = %s, MaximumAge = %s, GenderRequirement = %s, Available = %d
-                           WHERE id = %d", mysql_real_escape_string($name), esc_or_null($minage, 'int'), esc_or_null($maxage, 'int'), esc_or_null($gender, 'gender'), $available ? 1 : 0, $id);
+    $query = data_query("UPDATE :Classification SET Name = '%s', GenderRequirement = %s, MinimumAge = %s, MaximumAge = %s, MinumumRating = %s, MaximumRating = %s, PdgaStatusRequirement = %s, Available = %d
+                           WHERE id = %d", mysql_real_escape_string($name), esc_or_null($gender, 'gender'), esc_or_null($minage, 'int'), esc_or_null($maxage, 'int'), esc_or_null($minrating, 'int'), esc_or_null($maxrating, 'int'), esc_or_null($pdgastatus, 'pdgastatus'), $available ? 1 : 0, $id);
 
     if (!mysql_query($query)) {
         $err = new Error();
@@ -1888,13 +1897,14 @@ function EditClass($id, $name, $minage, $maxage, $gender, $available) {
     }
 }
 
-function CreateClass($name, $minage, $maxage, $gender, $available) {
+function CreateClass($name, $gender, $minage, $maxage, $minrating, $maxrating, $pdgastatus, $available) {
     $dbError = InitializeDatabaseConnection();
     if ($dbError) {
         return $dbError;
     }
 
-    $query = data_query("INSERT INTO :Classification (Name, MinimumAge, MaximumAge, GenderRequirement, Available) VALUES ('%s', %s, %s, %s, %d);", mysql_real_escape_string($name), esc_or_null($minage, 'int'), esc_or_null($maxage, 'int'), esc_or_null($gender, 'gender'), $available ? 1 : 0);
+    $query = data_query("INSERT INTO :Classification (Name, GenderRequirement, MinimumAge, MaximumAge, MinimumRating, MaximumRating, PdgaStatusRequirement, Available)
+	VALUES ('%s', %s, %s, %s, %s, %s, %s, %d);", mysql_real_escape_string($name), esc_or_null($gender, 'gender'), esc_or_null($minage, 'int'), esc_or_null($maxage, 'int'), esc_or_null($minrating, 'int'), esc_or_null($maxrating, 'int'), esc_or_null($pdgastatus, 'pdgastatus'), $available ? 1 : 0);
 
     if (!mysql_query($query)) {
         $err = new Error();
