@@ -27,9 +27,12 @@ class Classification
 {
     var $id;
     var $name;
+    var $gender;
     var $minAge;
     var $maxAge;
-    var $gender;
+    var $minRating;
+    var $maxRating;
+    var $pdgaStatus;
     var $available;
     var $class_player_limit;
     var $openPositions;
@@ -37,7 +40,7 @@ class Classification
     /** ************************************************************************
      * Class constructor
      */
-    function Classification($id = null, $name = null, $minAge = 0, $maxAge = 0, $gender = null, $available = 0, $class_player_limit=0, $openPositions = null)
+    function Classification($id = null, $name = null, $gender = null, $minAge = 0, $maxAge = 0, $minRating = 0, $maxRating = 0, $pdgaStatus = null, $available = 0, $class_player_limit=0, $openPositions = null)
     {
       if (is_array($id)) {
         $this->initializeFromArray($id);
@@ -45,23 +48,27 @@ class Classification
       }  else {
         $this->id = $id;
         $this->name = $name;
+        $this->gender = $gender;
         $this->minAge = $minAge;
         $this->maxAge = $maxAge;
-        $this->gender = $gender;
+        $this->minRating = $minRating;
+        $this->maxRating = $maxRating;
+	$this->pdgaStatus = $pdgaStatus;
         $this->available = $available;
         $this->class_player_limit = $class_player_limit;
         $this->openPositions = $openPositions;        
       }
-      
-      
     }
     
     function initializeFromArray($array) {
         $this->id = $array['id'];
         $this->name = $array['Name'];
+        $this->gender = $array['GenderRequirement'];
         $this->minAge = $array['MinimumAge'];
         $this->maxAge = $array['MaximumAge'];
-        $this->gender = $array['GenderRequirement'];
+        $this->minRating = $array['MinimumRating'];
+        $this->maxRating = $array['MaximumRating'];
+        $this->pdgaStatus = $array['PdgaStatusRequirement'];
         $this->available = $array['Available'];
         $this->class_player_limit = $array['ClassPlayerLimit'];
     }
@@ -70,13 +77,9 @@ class Classification
         static $data;
         if ($data) return $data;
         
-       
         $data = GetSignupsForClass($event, $this->id);
         
         return $data;
     }
-   
-    
-  
 }
 ?>
