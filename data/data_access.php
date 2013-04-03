@@ -70,9 +70,9 @@ function esc_or_null($param, $type = 'string') {
                 }
                 break;
 	    case 'pdgastatus':
-		$param = strtolower($param);
+		$param = strtoupper($param);
 		if ($param == 'A' || $param == 'P') {
-			$retValue = "'" . $param ."'";
+		    $retValue = "'" . $param ."'";
 		}
 		break;
             case 'bool':
@@ -812,7 +812,7 @@ function GetClasses($onlyAvailable = false) {
     if (mysql_num_rows($result) > 0) {
         while ($row = mysql_fetch_assoc($result)) {
             $retValue[] = new Classification($row['id'], $row['Name'], $row['GenderRequirement'], $row['MinimumAge'],
-                            $row['MaximumAge'], $row['minRating'], $row['maxRating'], $row['PdgaStatusRequirement'], $row['Available']);
+                            $row['MaximumAge'], $row['MinimumRating'], $row['MaximumRating'], $row['PdgaStatusRequirement'], $row['Available']);
         }
     }
 
@@ -1882,14 +1882,15 @@ function EditClass($id, $name, $gender, $minage, $maxage, $minrating, $maxrating
         return $dbError;
     }
 
-    $query = data_query("UPDATE :Classification SET Name = '%s', GenderRequirement = %s, MinimumAge = %s, MaximumAge = %s, MinumumRating = %s, MaximumRating = %s, PdgaStatusRequirement = %s, Available = %d
+    $update = sprintf("UPDATE :Classification SET Name = '%s', GenderRequirement = %s, MinimumAge = %s, MaximumAge = %s, MinimumRating = %s, MaximumRating = %s, PdgaStatusRequirement = %s, Available = %d
                            WHERE id = %d", mysql_real_escape_string($name), esc_or_null($gender, 'gender'), esc_or_null($minage, 'int'), esc_or_null($maxage, 'int'), esc_or_null($minrating, 'int'), esc_or_null($maxrating, 'int'), esc_or_null($pdgastatus, 'pdgastatus'), $available ? 1 : 0, $id);
+    $query = data_query($update);
 
     if (!mysql_query($query)) {
         $err = new Error();
         $err->title = "error_db_query";
         $err->description = translate("error_db_query_description");
-        $err->internalDescription = "Failed SQL UPDATE";
+        $err->internalDescription = "Failed SQL UPDATE:" . $update;
         $err->function = "EditClass()";
         $err->IsMajor = true;
         $err->data = "Class id: " . $id;
