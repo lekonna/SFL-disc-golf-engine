@@ -24,7 +24,7 @@ if (DEV_ENVIRONMENT==true) {
 $settings['USE_MOD_REWRITE'] = false;
 
 include_once('config_email.php');        
-require_once('FirePHPCore/FirePHP.class.php');   
+//require_once('FirePHPCore/FirePHP.class.php');   
 require_once('core/log/log.php');   
  
  ?>

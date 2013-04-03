@@ -22,6 +22,7 @@
  * along with Kisakone.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
+//fill_open_positions
 function ProcessAction() {
     language_include('events');
     $event = GetEventDetails(@$_GET['id']);

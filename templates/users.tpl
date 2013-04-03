@@ -1,6 +1,6 @@
 {*
  * Suomen Frisbeeliitto Kisakone
- * Copyright 2009-2010 Kisakone projektiryhm§
+ * Copyright 2009-2010 Kisakone projektiryhmï¿½
  *
  * User listing
  * 
@@ -37,6 +37,7 @@
    <tr>
       <th>{sortheading field=name id=users_name sortType=alphabetical}</th>
       <th>{sortheading field=pdga id=users_pdga sortType=integer}</th>
+      <th>{sortheading field=club id=club sortType=alphabetical}</th>
       <th>{sortheading field=Username id=users_id sortType=alphabetical}</th>
       
    </tr>
@@ -54,6 +55,7 @@
         <td><a href="{$url}">{$user->firstname|escape} {$user->lastname|escape}</a></td>
         
          <td>{$player->pdga|escape}</td>
+         <td>{$participant.player->club_id|escape}</td>  
          <td><a href="{$url}">{$user->username|escape}</a></td>
          
      </tr>

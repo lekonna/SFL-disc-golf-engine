@@ -135,26 +135,12 @@ function InitializeSmartyVariables(&$smarty, $error) {
 
                     $canSignup = $event->IsSignuppable($playerId);
                     if (!$canSignup) {
-                       $smarty->assign('allreadyOnWaitinlist', true);
+                        $smarty->assign('allreadyOnWaitinlist', true);
                     }
                 }
             }
             if ($requiredFees && $user) {
-                if (!$user->FeesPaidForYear(date('Y', $event->startdate), $requiredFees)) {
-
-                    $message = "";
-                    if ($requiredFees > 0) {
-                        $temp = translate("membership_required");
-                        $message .= $temp . "<br />";
-                    }
-                    if ($requiredFees == 2 || $requiredFees == 3) {
-                         $temp = translate("licence_b_requiered");
-                        $message .= $temp . "<br />";
-                    }
-                    if ($requiredFees == 6 || $requiredFees == 7) {
-                         $temp = translate("licence_a_requiered");
-                        $message .= $temp . "<br />";
-                    }
+                if ($message = $u->FeesPaidForYear(date('Y', $event->startdate), $requiredFees)) {
                     $smarty->assign('feesMissing', $message);
                 }
             }

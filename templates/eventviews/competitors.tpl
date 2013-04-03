@@ -39,6 +39,7 @@
 
 <table class="narrow" style="min-width: 400px">
    <tr>
+    <th>{translate id=participant_number}</th>
     <th>{sortheading field=LastName id=lastname sortType=alphabetical}</th>
       <th>{sortheading field=FirstName id=firstname sortType=alphabetical}</th>
       <th>{sortheading field=ClassName id=class sortType=alphabetical}</th>
@@ -47,11 +48,11 @@
       <th>{sortheading field=Eventfee id=users_eventfees sortType=alphabetical}</th>
    </tr>
 
-   {foreach from=$participants item=participant}
+   {foreach from=$participants item=participant name=partiCip}
             
       
      <tr>
-        
+        <td>{$smarty.foreach.partiCip.index+1}</td>
         <td><a href="{url page=user id=$participant.user->username}">{$participant.user->lastname|escape}</a></td>
         <td><a href="{url page=user id=$participant.user->username}">{$participant.user->firstname|escape}</a></td>
         <td>{$participant.className|escape}</td>

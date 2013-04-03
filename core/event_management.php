@@ -37,10 +37,13 @@ function SignUpUser($eventId, $userId, $classId) {
     $player = GetUserPlayer($userId);
     if (isset($player)) {
         $playersInWaitingList = PlayersWaitingOnEvent($eventId, $classId);
-        $playersInClass = GetClassificationPlayerCount($eventId, $classId);
+        $playersInClass = GetPlayerCount($eventId, $classId);
         $playerLimit = GetPlayerLimit($eventId, $classId); // $classid
          $playersWaitingInClass = checkIfPlayersInWaitingList($eventId, $classId);
-        if ($playerLimit!=0 &&  $playersInClass >= $playerLimit || $playersWaitingInClass) {
+         $eventLimit = GetPlayerLimit($eventId);
+         $playerTotalCount = GetPlayerCount($eventId);
+         
+        if ($playerLimit!=0 &&  $playersInClass >= $playerLimit || $playersWaitingInClass || $playerTotalCount>=$eventLimit) {
             $retValue = SetPlayerToWaitinglist($player->id, $eventId, $classId);
         } else {
             $retValue = SetPlayerParticipation($player->id, $eventId, $classId);

@@ -361,3 +361,21 @@ CREATE TABLE :Club
   contact varchar(100),
   PRIMARY KEY(id)
 );
+
+CREATE TABLE :Waitinglist (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  Event int(11) NOT NULL,
+  Player int(11) NOT NULL,
+  Signup_number int(11) NOT NULL,
+  Classification int(11) NOT NULL,
+  Signup_Timestamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS :Event_views_visibility (
+  event int(11) NOT NULL,
+  view varchar(50) NOT NULL,
+  visibility enum('private','public') NOT NULL DEFAULT 'public',
+  PRIMARY KEY (event,view)
+) 
+

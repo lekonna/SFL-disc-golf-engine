@@ -127,7 +127,7 @@
 
         <input id="requireFees_license_A" type="radio" name="requireFees_license" value="requireFees_license_A"  {if $event.requireFees_license_A} checked="checked" {/if}/><label class="checkboxlabel" for="requireFees_license_A" >{translate id="event_require_license_fee_A"}</label><br />
         <input id="requireFees_license_B" type="radio" name="requireFees_license" value="requireFees_license_B"  {if $event.requireFees_license_B} checked="checked" {/if} /> <label class="checkboxlabel" for="requireFees_license_B">{translate id="event_require_license_fee_B"}</label><br />
-        <input id="requireFees_license_B" type="radio" name="requireFees_license" value="requireFees_license_C"  {if $event.requireFees_license_C} checked="checked" {/if} /> <label class="checkboxlabel" for="requireFees_license_C">{translate id="event_require_no_license"}</label><br />
+        <input id="requireFees_license_C" type="radio" name="requireFees_license" value="requireFees_license_C"  {if $event.requireFees_license_C} checked="checked" {/if} /> <label class="checkboxlabel" for="requireFees_license_C">{translate id="event_require_no_license"}</label><br />
         
     
     </div>

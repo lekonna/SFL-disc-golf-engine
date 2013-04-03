@@ -731,7 +731,7 @@ function ChangePagePublicity($event, $view, $cmd) {
 function FillOpenPositionsFromQueue($event, $class = null) {
     $ret = '';
     if ($class != null) {
-        $classPartisipants = GetClassificationPlayerCount($event->id, $class);
+        $classPartisipants = GetPlayerCount($event->id, $class);
         $classLimit = GetPlayerLimit($event, $class);
 
         $openPositions = $classPartisipants - $classLimit;
@@ -749,7 +749,7 @@ function FillOpenPositionsFromQueue($event, $class = null) {
 
             if (!empty($players)) {
 
-                $classPartisipants = GetClassificationPlayerCount($event->id, $class->id);
+                $classPartisipants = GetPlayerCount($event->id, $class->id);
                 $classLimit = GetPlayerLimit($event->id, $class->id);
                 $openPositions = $classLimit - $classPartisipants;
                 if ($openPositions <= 0) {
@@ -791,7 +791,7 @@ function FillOpenPositionsFromQueue($event, $class = null) {
                         }
                         
                     }else {
-                        if (GetClassificationPlayerCount($event->id, $class->id)>0){
+                        if (GetPlayerCount($event->id, $class->id)>0){
                             UpdateSignupNumbers($event->id, $class->id);
                         }
                         

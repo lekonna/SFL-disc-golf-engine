@@ -95,10 +95,12 @@ function InitializeSmartyVariables(&$smarty, $error) {
         $fees = $event->FeesRequired();
         $e['requireFees_member'] = ($fees & 1) != 0;
         if ($fees == 3 || $fees == 2){
-        $e['requireFees_license_B'] = true;  //($fees & 2) != 0;
-        } else if ($fees == 6 || $fees == 7){
-        $e['requireFees_license_A'] = true; 
-        } else {
+        $e['requireFees_license_A'] = true;  //($fees & 2) != 0;
+        } 
+        else if ($fees == 6 || $fees == 7){
+        $e['requireFees_license_B'] = true; 
+        } 
+        else {
         $e['requireFees_license_C'] = true; 
         }
         

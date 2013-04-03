@@ -57,20 +57,9 @@ function processForm() {
         if (!$player->IsSuitableClass($class)) {
             return translate("error_invalid_class");
         }
-        if (!$u->FeesPaidForYear(date('Y', $event->startdate), $requiredFees)) {
-            $message = "";
-            if ($requiredFees > 0) {
-                $temp = translate("membership_required");
-                $message .= $temp . "<br />";
-            }
-            if ($requiredFees == 2 || $requiredFees == 3) {
-                $temp = translate("licence_b_requiered");
-                $message .= $temp . "<br />";
-            }
-            if ($requiredFees == 6 || $requiredFees == 7) {
-                $temp = translate("licence_a_requiered");
-                $message .= $temp . "<br />";
-            }
+        $message = $u->FeesPaidForYear(date('Y', $event->startdate), $requiredFees);
+        if ($message!==true) {
+            
             return $message;
         }
 

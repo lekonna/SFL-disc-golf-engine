@@ -957,12 +957,15 @@ function GetEventClasses($event) {
     $retValue = array();
     $event = (int) $event;
     //arttu 14.3.2012
-    $result = mysql_query(data_query("SELECT :Classification.id, Name, GenderRequirement, MinimumAge, MaximumAge, MinimumRating, MaximumRating, PdgaStatusRequirement, Available, :ClassInEvent.ClassPlayerLimit
+    $query = data_query("SELECT :Classification.id, Name, GenderRequirement, MinimumAge, MaximumAge, MinimumRating, MaximumRating, PdgaStatusRequirement, Available, :ClassInEvent.ClassPlayerLimit
                                          FROM :Classification, :ClassInEvent 
                                          WHERE :ClassInEvent.Classification = :Classification.id AND
-                                         :ClassInEvent.Event = $event ORDER BY Name"));
+                                         :ClassInEvent.Event = $event ORDER BY Name");
+    $result = mysql_query($query);
 
 
+    if (!$result)
+        return false;
     if (mysql_num_rows($result) > 0) {
         while ($row = mysql_fetch_assoc($result)) {
 
@@ -974,7 +977,7 @@ function GetEventClasses($event) {
 
 
 
-                    $classificationPlayerCount = GetClassificationPlayerCount($event, $class->id);
+                    $classificationPlayerCount = GetPlayerCount($event, $class->id);
                     $openPos = $class->class_player_limit - $classificationPlayerCount;
                }
                 $class->openPositions = $openPos;
@@ -4662,20 +4665,27 @@ function GetUserFees($playerid, $year) {
     $membership = mysql_num_rows($result2);
     mysql_free_result($result2);
     */
-   logToFile("getUSerfees");
+   //logToFile("getUSerfees");
     $lquery = data_query("SELECT license FROM sfl_membership WHERE player_id = %d AND year = %d", $playerid, $year);
     $result = mysql_query($lquery);
     if (!$result)
         return false;
-    $row = mysql_fetch_assoc($result);
-    if (!$row)
-        return false;
-    $license = $row['license'];
+   //$row = mysql_fetch_assoc($result);
+    //if (!$row)
+        //return false;
+    //arttu 3.4.2013 1 = sfl membership, 2 = a-licence, 6 = b-licence 
+    $playerYearsPayments = array();
+    while (($row = mysql_fetch_assoc($result)) !== false) {
+        $license = $row['license'];
+        if ($license===1 || 2 || 6)
+        $playerYearsPayments[]=$license;
+    }
+    
         
 //mysql_free_result($result1);
 
     
-    return $license;//, $membership);
+    return $playerYearsPayments;//, $membership);
 }
 
 function GetUpcomingEvents($onlySome) {
@@ -4893,13 +4903,18 @@ function GetClubs($searchQuery = '') {
 }
 
 //18.4.2012 Arttu
-function GetClassificationPlayerCount($event, $class) {
+function GetPlayerCount($event, $class=null) {
     $dbError = InitializeDatabaseConnection();
     if ($dbError) {
         return $dbError;
     }
     $retValue = array();
-    $query = data_query("SELECT COUNT(Player) AS Players FROM :Participation WHERE Event = %d AND Classification = %d", $event, $class);
+    if ($class==null){
+        $query = data_query("SELECT COUNT(Player) AS Players FROM :Participation WHERE Event = %d", $event);
+    }else {
+        $query = data_query("SELECT COUNT(Player) AS Players FROM :Participation WHERE Event = %d AND Classification = %d", $event, $class);
+    }
+    
     $result = mysql_query($query);
     if (mysql_num_rows($result) == 1) {
         $row = mysql_fetch_assoc($result);
@@ -4909,15 +4924,22 @@ function GetClassificationPlayerCount($event, $class) {
     mysql_free_result($result);
     return $retValue;
 }
-
-function GetPlayerLimit($event, $class) {
+function GetPlayerLimit($event, $class=null) {
     $dbError = InitializeDatabaseConnection();
     if ($dbError) {
         return $dbError;
     }
     $retValue = array();
-    $query = data_query("SELECT ClassPlayerLimit FROM :ClassInEvent WHERE Classification = %d AND Event = %d", $class, $event);
+    if ($class==null){
+        $query = data_query("SELECT PlayerLimit FROM :Event WHERE id = %d", $event);
+    }else {
+        $query = data_query("SELECT ClassPlayerLimit FROM :ClassInEvent WHERE Classification = %d AND Event = %d", $class, $event);
+    }
+    
     $result = mysql_query($query);
+    if (!$result){
+        return 0;
+    }
     if (mysql_num_rows($result) == 1) {
         $row = mysql_fetch_assoc($result);
         $retValue = $row['ClassPlayerLimit'];
@@ -4973,8 +4995,10 @@ function checkIfPlayersInWaitingList($eventId, $classId = null) {
     }
     if ($classId !== null) {
         $query = data_query("SELECT Player FROM :Waitinglist WHERE Event = %d AND Classification = %d ", $eventId, $classId);
+    }else {
+    $query = data_query("SELECT Player FROM :Waitinglist WHERE Event = %d ", $eventId);    
     }
-    $query = data_query("SELECT Player FROM :Waitinglist WHERE Event = %d ", $eventId);
+    
     $result = mysql_query($query);
     if (!$result) {
 	die("query failed: ".mysql_error()." : ".Error::Query($query));
@@ -5147,7 +5171,7 @@ function GetEventClassQueuers($eventId, $classId) {
                   INNER JOIN :Player ON :Player.player_id = :User.Player
                   INNER JOIN :Waitinglist ON :Waitinglist.Player = :Player.player_id AND :Waitinglist.Event = " . $eventId . "
                   INNER JOIN :Classification ON :Waitinglist.Classification = :Classification.id
-                  INNER JOIN sfl_clubs ON sfl_clubs.club_id = :Player.club_id
+                  LEFT JOIN sfl_clubs ON sfl_clubs.club_id = :Player.club_id
                   WHERE :Waitinglist.Event = %d AND :Waitinglist.Classification = %d
                   ORDER BY $sortOrder 
                   ";
