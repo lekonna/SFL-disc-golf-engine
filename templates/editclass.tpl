@@ -93,6 +93,8 @@ $(document).ready(function(){
     CheckedFormField('form', 'Name', NonEmptyField, null);
     CheckedFormField('form', 'MinimumAge', PositiveIntegerField, true);
     CheckedFormField('form', 'MaximumAge', PositiveIntegerField, true);
+    CheckedFormField('form', 'MinimumRating', PositiveIntegerField, true);
+    CheckedFormField('form', 'MaximumRating', PositiveIntegerField, true);
     
     $("#cancelButton").click(CancelSubmit);
     
