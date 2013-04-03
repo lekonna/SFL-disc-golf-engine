@@ -59,7 +59,7 @@ function processForm() {
     if ($maxrating != '' && !is_numeric($maxrating)) $problems['MaximumRating'] = translate('FormError_NotPositiveInteger');
     
     $pdgastatus = $_POST['PdgaStatusRequirement'];
-    if (!in_array($pdgastatus, array('', 'amateur', 'professional'))) $problems['PdgaStatusRequirement'] = translate('FormError_InternalError');
+    if (!in_array($pdgastatus, array('', 'A', 'P'))) $problems['PdgaStatusRequirement'] = translate('FormError_InternalError');
     
     $available = (bool)@$_POST['Available'];
     
