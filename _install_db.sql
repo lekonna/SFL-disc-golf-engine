@@ -4,6 +4,9 @@ CREATE TABLE :Player
    player_id SMALLINT NOT NULL AUTO_INCREMENT,
    
    pdga varchar(10),
+   pdga_rating INT NOT NULL DEFAULT 0,
+   pdga_previous_rating INT NOT NULL DEFAULT 0,
+   pdga_status ENUM('amateur','professional') DEFAULT 'amateur',
    
    sex ENUM('male', 'female'),
    lastname VARCHAR(100),
@@ -150,9 +153,12 @@ CREATE TABLE :Classification
 (
    id INT NOT NULL AUTO_INCREMENT,   
    Name VARCHAR(40) NOT NULL,
+   GenderRequirement CHAR(1),
    MinimumAge INT,
    MaximumAge INT,
-   GenderRequirement CHAR(1),
+   MinimumRating INT,
+   MaximumRating INT,
+   PdgaStatusRequirement CHAR(1),
    Available TINYINT NOT NULL,
    PRIMARY KEY(id),
    INDEX(Available)
@@ -355,4 +361,3 @@ CREATE TABLE :Club
   contact varchar(100),
   PRIMARY KEY(id)
 );
-

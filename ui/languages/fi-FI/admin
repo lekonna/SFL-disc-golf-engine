@@ -9,6 +9,9 @@ new_page            Uusi sivu
 
 minage              Minimi-ikä
 maxage              Maksimi-ikä
+minrating           Minimi-rating
+maxrating           Maksimi-rating
+pdgastatus          PDGA pelaajastatus
 available           Käytettävissä
 
 new_class           Uusi luokka

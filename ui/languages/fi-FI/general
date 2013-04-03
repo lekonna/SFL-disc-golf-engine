@@ -135,6 +135,8 @@ gender          Sukupuoli
 male            Mies
 female          Nainen
 dob             Syntymäaika
+amateur         Amatööri
+professional    Ammattilainen
 
 firstname       Etunimi
 lastname        Sukunimi

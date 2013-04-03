@@ -35,6 +35,14 @@
     </div>
     
     <div>
+        <label for="GenderRequirement">{translate id=gender}</label>
+        <select name="GenderRequirement" id="GenderRequirement">            
+            {html_options options=$genderOptions selected=$class->gender}
+        </select>
+
+    </div>
+    
+    <div>
         <label for="MinimumAge">{translate id=minage}</label>
         <input type="text" id="MinimumAge" name="MinimumAge" value="{$class->minAge|escape}" />
         {formerror field='MinimumAge'}
@@ -46,9 +54,20 @@
     </div>
     
     <div>
-        <label for="GenderRequirement">{translate id=gender}</label>
-        <select name="GenderRequirement" id="GenderRequirement">            
-            {html_options options=$genderOptions selected=$class->gender}
+        <label for="MinimumRating">{translate id=minrating}</label>
+        <input type="text" id="MinimumRating" name="MinimumRating" value="{$class->minRating|escape}" />
+        {formerror field='MinimumRating'}
+    </div>
+    <div>
+        <label for="MaximumRating">{translate id=maxrating}</label>
+        <input type="text" id="MaximumRating" name="MaximumRating" value="{$class->maxRating|escape}" />
+        {formerror field='MaximumRating'}
+    </div>
+    
+    <div>
+        <label for="PdgaStatusRequirement">{translate id=pdgastatus}</label>
+        <select name="PdgaStatusRequirement" id="PdgaStatusRequirement">            
+            {html_options options=$pdgaStatusOptions selected=$class->pdgaStatus}
         </select>
 
     </div>
@@ -74,6 +93,8 @@ $(document).ready(function(){
     CheckedFormField('form', 'Name', NonEmptyField, null);
     CheckedFormField('form', 'MinimumAge', PositiveIntegerField, true);
     CheckedFormField('form', 'MaximumAge', PositiveIntegerField, true);
+    CheckedFormField('form', 'MinimumRating', PositiveIntegerField, true);
+    CheckedFormField('form', 'MaximumRating', PositiveIntegerField, true);
     
     $("#cancelButton").click(CancelSubmit);
     
