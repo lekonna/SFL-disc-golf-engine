@@ -4,6 +4,9 @@ CREATE TABLE :Player
    player_id SMALLINT NOT NULL AUTO_INCREMENT,
    
    pdga varchar(10),
+   pdga_rating INT NOT NULL DEFAULT 0,
+   pdga_previous_rating INT NOT NULL DEFAULT 0,
+   pdga_status ENUM('amateur','professional') DEFAULT 'amateur',
    
    sex ENUM('male', 'female'),
    lastname VARCHAR(100),
@@ -355,4 +358,3 @@ CREATE TABLE :Club
   contact varchar(100),
   PRIMARY KEY(id)
 );
-
