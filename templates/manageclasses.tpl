@@ -27,20 +27,18 @@
 <table class="oddrows narrow">
     <tr>
         <th>{translate id=name}</th>
+        <th>{translate id=gender}</th>
         <th>{translate id=minage}</th>
         <th>{translate id=maxage}</th>
-        <th>{translate id=gender}</th>
+        <th>{translate id=minrating}</th>
+	<th>{translate id=maxrating}</th>
+	<th>{translate id=pdgastatus}</th>
         <th>{translate id=available}</th>
         <th>{translate id=edit}</th>
     </tr>
 {foreach from=$classes item=class}
     <tr>
         <td>{$class->name|escape}</td>
-        <td>{$class->minAge}
-        {if !$class->minAge}-{/if}
-        </td>
-        <td>{$class->maxAge}
-        {if !$class->maxAge}-{/if}</td>
         <td>
             {if $class->gender == M}
                 {translate id=male}
@@ -51,6 +49,22 @@
                 
             {/if}
         </td>
+        <td>{$class->minAge}
+        	{if !$class->minAge}-{/if}
+        </td>
+        <td>{$class->maxAge}
+        	{if !$class->maxAge}-{/if}
+	</td>
+        <td>{$class->minRating}
+        	{if !$class->minRating}-{/if}
+        </td>
+        <td>{$class->maxRating}
+        	{if !$class->maxRating}-{/if}
+	</td>
+        <td>{$class->pdgaStatus}
+        	{if !$class->pdgaStatus}-{/if}
+	</td>
+
         <td>
             {if $class->available}
             {translate id=yes!}
