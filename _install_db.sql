@@ -153,9 +153,12 @@ CREATE TABLE :Classification
 (
    id INT NOT NULL AUTO_INCREMENT,   
    Name VARCHAR(40) NOT NULL,
+   GenderRequirement CHAR(1),
    MinimumAge INT,
    MaximumAge INT,
-   GenderRequirement CHAR(1),
+   MinimumRating INT,
+   MaximumRating INT,
+   PdgaStatusRequirement CHAR(1),
    Available TINYINT NOT NULL,
    PRIMARY KEY(id),
    INDEX(Available)
