@@ -61,9 +61,16 @@
         <td>{$class->maxRating}
         	{if !$class->maxRating}-{/if}
 	</td>
-        <td>{$class->pdgaStatus}
-        	{if !$class->pdgaStatus}-{/if}
-	</td>
+        <td>
+            {if $class->pdgaStatus == A}
+                {translate id=amateur}
+                {elseif $class->pdgaStatus == P}
+                {translate id=professional}
+                {else}
+                {translate id=any}
+                
+            {/if}
+        </td>
 
         <td>
             {if $class->available}
