@@ -8,3 +8,5 @@ FirePHPCore/
 nbproject/
 Smarty/templates_c/
 *.tumi
+tempListlog.txt
+templog.txt
