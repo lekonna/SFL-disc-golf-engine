@@ -19,7 +19,7 @@ while read PLAYERID PDGANUM; do
 	elif [ "${STATUS}" == "unknown" ]; then
 		echo "-- status ${STATUS} for player_id ${PLAYERID}"
 	else
-		UPDATE="UPDATE ${PREFIX}Player SET pdga_status = '${STATUS}', pdga_previous_rating = pdga_rating, pdga_rating = ${RATING} WHERE player_id = ${PLAYERID};"
+		UPDATE="UPDATE ${PREFIX}Player SET pdga_status = '${STATUS}', pdga_rating = ${RATING} WHERE player_id = ${PLAYERID};"
 		echo $UPDATE
 		mysql -u ${USER} --password=${PASS} ${DB} -s -e "${UPDATE}"
 	fi
