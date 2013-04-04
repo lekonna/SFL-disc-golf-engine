@@ -1,3 +1,5 @@
+Setting up Kisakone:
+--------------------
 Step 1: Extract and/or copy the extracted files to a location which is accessible through the web server you intend to use. This should be the final location as well.
 
 For the purposes of this file, we'll assume the installation happens at the directory "." and is accessible through http://example.com/kisakone/ ,
@@ -13,3 +15,18 @@ Step 5: It is recommended, although not strictly necessary to prevent the web se
 Step 6: The directory ui/elements/uploaded needs to be made writable by the web server
 
 Step 7: If using mod_rewrite, adjust the RewriteBase setting in .htaccess manually to refer to the installation path (as seen on the web server)
+
+
+Setting up LAMP for Kisakone:
+-----------------------------
+
+In Ubuntu:
+Good generic guide for setting LAMP:
+https://help.ubuntu.com/community/ApacheMySQLPHP
+
+Step by step:
+sudo apt-get install mysql-server apache2 libapache2-mod-php5
+sudo a2enmod php5
+sudo a2enmod rewrite
+sudo service apach2 restart
+
