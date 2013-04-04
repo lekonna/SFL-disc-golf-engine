@@ -140,7 +140,7 @@ function InitializeSmartyVariables(&$smarty, $error) {
                 }
             }
             if ($requiredFees && $user) {
-                if ($message = $u->FeesPaidForYear(date('Y', $event->startdate), $requiredFees)) {
+                if ($message = $user->FeesPaidForYear(date('Y', $event->startdate), $requiredFees)) {
                     $smarty->assign('feesMissing', $message);
                 }
             }
