@@ -11,3 +11,6 @@ Smarty/templates_c/
 tempListlog.txt
 templog.txt
 pelaajat
+
+# vagrant up files
+.vagrant
