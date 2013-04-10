@@ -53,7 +53,7 @@ function SFL_FeesPaidForYear($user, $year) {
         }
         if ($row['license'] > 1) $membership = true;
         if ($row['license'] == 6) $license = true;
-        if ($row['lisense'] == 2) $bLisence = true;
+        if ($row['license'] == 2) $bLisence = true;
         
     }
     

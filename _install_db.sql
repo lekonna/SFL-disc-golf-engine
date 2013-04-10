@@ -5,7 +5,6 @@ CREATE TABLE :Player
    
    pdga varchar(10),
    pdga_rating INT NOT NULL DEFAULT 0,
-   pdga_previous_rating INT NOT NULL DEFAULT 0,
    pdga_status ENUM('amateur','professional') DEFAULT 'amateur',
    
    sex ENUM('male', 'female'),
