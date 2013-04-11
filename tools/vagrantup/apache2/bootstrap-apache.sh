@@ -4,13 +4,13 @@
 sudo apt-get update
 
 # mysql
-sudo apt-get install debconf-utils git
+sudo apt-get -y install debconf-utils
 echo 'mysql-server-5.5 mysql-server/root_password_again password pass' | sudo debconf-set-selections
 echo 'mysql-server-5.5 mysql-server/root_password password pass' | sudo debconf-set-selections
 sudo apt-get -y install mysql-server mysql-client
 
 # apache
-sudo apt-get -y install apache2 libapache2-mod-php5 libapache2-mod-auth-mysql php5-mysql
+sudo apt-get -y install apache2 libapache2-mod-php5 libapache2-mod-auth-mysql php5-mysql git
 echo "ServerName localhost" | sudo tee /etc/apache2/conf.d/fqdn
 sudo a2enmod php5
 sudo a2enmod rewrite
